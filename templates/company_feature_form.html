@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#myModal").modal('show');
+    });
+</script>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+
+            <form action="/Company_Features_Save/{{cm.id}}" method="post">
+                {% csrf_token %}
+                <div class="modal-body ">
+
+                    <!-- <div class="text-center border-bottom p-3 mt-0">
+                    <h4 class="m-0 p-0">Company created successfully</h4>
+                   
+               
+                </div> -->
+                    <div class="row p-2 border-bottom">
+                        <h5 class="modal-title">Company: {{cm.cname}}</h5>
+                        <small class="">(Enable the features as per your bussinss needs.{{cm.id }})</small>
+                    </div>
+                    <div class="row py-3">
+
+                        <div id="rel" class="col border-end">
+                            <h5>Accounting</h5>
+                            <label for="country" class="float-left mx-3 ">Maintain Accounts</label>
+
+                            <select name="MA" id="" class="N form-control  "
+                                style="max-width: 70px;position: absolute;right: 2%;">
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+
+                            </select>
+                            <br>
+                            <br><br>
+
+                            <label for="country" class="float-left mx-3 ">Enable Bill-wise entry</label>
+                            <select name="wise_en" id="" class="N form-control  "
+                                style="max-width: 70px;position: absolute;right: 2%;">
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+
+                            </select>
+                            <br>
+                            <br>
+                            <h5>Inventory</h5>
+                            <label for="country" class="float-left mx-3 ">Maintain Inventory </label>
+                            <select name="MI" id="" class="N form-control  "
+                                style="max-width: 70px;position: absolute;right: 2%;">
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+
+                            </select>
+                            <br><br>
+                            <label for="country" class="float-left mx-3 ">Integrate Accounts with Inventory </label>
+                            <select name="IAWI" id="" class="N form-control  "
+                                style="max-width: 70px;position: absolute;right: 2%;">
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+
+                            </select>
+                            <br>
+
+                        </div>
+                        <div class="col">
+                            <h5>Taxation</h5>
+                            <label for="country" class="float-left mx-3 ">Enable Goods and Service Tax(GST)</label>
+                            <select name="gst" id="" class="N form-control  "
+                                style="max-width: 70px;position: absolute;right: 2%;">
+                                <option value="True" selected>Yes</option>
+                                <option value="False">No</option>
+
+                            </select>
+                            <br>
+                            <br>
+
+                            <label for="country" class="float-left mx-3 ">Enable Tax Deducted at Source(TDS)</label>
+                            <select name="tds" id="" class="N form-control  "
+                                style="max-width: 70px;position: absolute;right: 2%;">
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+
+                            </select>
+                            <br>
+                            <br>
+
+                            <br>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    h5 {
+        color: rgb(87, 93, 117);
+    }
+
+    h4 {
+        color: rgb(95, 101, 128);
+    }
+</style>
+{% endblock body %}

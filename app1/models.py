@@ -18,6 +18,7 @@ class CompanyModel(models.Model):
     email=models.EmailField()
     website=models.CharField(max_length=225)
     is_status=models.BooleanField(default=True)
+    is_active=models.BooleanField(default=False)
     # 
     currency_symbol=models.CharField(max_length=225,default='₹')
     currency_formal_name=models.CharField(max_length=225,default='INR')
@@ -27,8 +28,8 @@ class CompanyModel(models.Model):
 
 
 
-class Company_Features(models.Model):
-    cid=models.ForeignKey(CompanyModel, on_delete=models.CASCADE)
+class Company_Feature(models.Model):
+    cid=models.ForeignKey(CompanyModel, on_delete=models.CASCADE,null=True,blank=True)
     #accounting
     maintain_accounts=models.BooleanField(default=True)
     enable_bill_wise_entry=models.BooleanField(default=True)

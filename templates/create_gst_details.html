@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+
+
+<div class="container">
+    <div class="row ">
+        <div class="text-center m-4">
+            <h4 class="text-decoration-underline">GST Details</h4>
+        </div>
+
+        <div class="col-1"></div>
+        <div class="col-5 border-end" style="min-height:100vh ;">
+            <h5>GST Registraion Details:</h5>
+            <label for="">State:</label>
+            <input type="text" class="form-control w-75 m-1">
+
+            <label for="">Registraion Type:</label>
+            <select name="" id="" class="form-control w-75 m-1">
+                <option value="Regular" selected>Regular</option>
+                <option value="Composition">Composition</option>
+            </select>
+
+
+            <label for="">GST applicable from:</label>
+            <input type="Date" class="form-control w-75 m-1">
+
+            <label for="">GSTIN/UIN:</label>
+            <input type="text" class="form-control w-75 m-1">
+
+
+            <label for="">Periodicity of GSTR1:</label>
+            <select name="" id="" class="form-control w-75 m-1">
+                <option value="Monthly" selected>Monthly</option>
+                <option value="Quarterly">Quarterly</option>
+            </select>
+
+
+
+            <h5 class="mt-4">Additional Features</h5>
+            <label for="" class="float-left">Set/alter GST rate details</label>
+            <select name="MA" id="" class="N form-control  " style="max-width: 70px; position: absolute; right: 10%;">
+                <option value="True" selected>Yes</option>
+                <option value="False">No</option>
+
+            </select>
+
+        </div>
+        <div class="col-4">
+            <h5>Invoice Features</h5>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+
+
+
+{% endblock body %}
