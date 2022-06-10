@@ -9,7 +9,9 @@ urlpatterns = [
     path('create_company', create_company, name='create_company'),
     path('Company_Features/', Company_Features, name='Company_Features'),
     path('Company_Features_Save/<int:pk>',Company_Features_Save, name='Company_Features_Save'),
-    path('Gst_Details',Gst_Details,name='Gst_Details'),
+    path('gst_details',gst_details,name='gst_details'),
+    
+    
 
 
 

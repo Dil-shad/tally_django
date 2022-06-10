@@ -99,35 +99,69 @@ def Company_Features_Save(request, pk):
             enable_tds=enable_tds,
         )
         md.save()
-        
+        if enable_gst == 'True':
+            return redirect('gst_details')
+        else:
+            pass
+
         return redirect('Company_Features')
 
 
+def gst_details(request):
 
-def Gst_Details(request):
+    if request.method == 'POST':
+        toda = date.today()
+        tod = toda.strftime("%Y-04-01")
 
+        pk = request.session["cid"]
+        ciid = CompanyModel.objects.get(id=pk)
+        
+        state = request.POST['ste']
+        reg_typ = request.POST['reg_tp']
+        gst_af = request.POST['gpf']
+        uin = request.POST['uin']
+        peroidici = request.POST['priod']
+        #
+        alter_gst = request.POST['alt_gst']
+        liabi_adv_rece = request.POST['tax_liab']
+        liabi_reverse_chrg = request.POST['liab_reve']
+        gst_clasific = request.POST['gst_clasif']
+        bond_dtls = request.POST['bond']
+        #
+        e_bil_applicable = request.POST['e_bill']
+        gst_applicable_from = request.POST['gap_date']
+        thres_limit_inc = request.POST['thre_limit_include']
+        threshold_lmt = request.POST['threshold_limit_amt']
+        applicable_intrstate = request.POST['intrestate']
+        e_bil_wit_invo = request.POST['bil_invoi']
+        e_invo_applic = request.POST['e_invo_applicable']
 
+        mdl = GST(
 
-    # cid=models.ForeignKey(CompanyModel, on_delete=models.CASCADE)
-    # state=models.CharField(max_length=225)
-    # registration_type=models.CharField(max_length=225)
-    # gst_applicable_from=models.DateField()
-    # gst_uin=models.CharField(max_length=225)
-    # periodicity_of_gst=models.CharField(max_length=225)
-    # #additional_features      
-    # alter_gst_rate_dtls=models.BooleanField(default=False)   
-    # tax_liabilty_on_advanced_recipts=models.BooleanField(default=False)
-    # tax_liabilty_on_reverse_charge=models.BooleanField(default=False)
-    # gst_classification=models.BooleanField(default=False)
-    # lut_bond_dtls=models.BooleanField(default=False) #provide LUT-Bond details(field)
-    # #invoice_fetures
-    # bill_applicable=models.BooleanField(default=True)#e-way bill
-    # applicable_from=models.DateField()
-    # threshold_limt_includes=models.CharField(max_length=225)#drop down
-    # threshold=models.CharField(max_length=225,default='50,000')
-    # applicable_for_intrastate=models.BooleanField(default=True)
-    # threshold_limit=models.CharField(max_length=225,default='50,000')
-    # print_e_bill_with_invoice=models.BooleanField(default=False)
-    # e_invoicing_applicable=models.BooleanField(default=False)
-    
-    return render(request,'create_gst_details.html')
+            cid=ciid,
+            state=state,
+            registration_type=reg_typ,
+            gst_applicable_from=gst_af,
+            gst_uin=uin,
+            periodicity_of_gst=peroidici,
+            alter_gst_rate_dtls=alter_gst,
+            tax_liabilty_on_advanced_recipts=liabi_adv_rece,
+            tax_liabilty_on_reverse_charge=liabi_reverse_chrg,
+            gst_classification=gst_clasific,
+            lut_bond_dtls=bond_dtls,
+            bill_applicable=e_bil_applicable,
+            applicable_from=gst_applicable_from,
+            threshold_limt_includes=thres_limit_inc,
+            applicable_for_intrastate=applicable_intrstate,
+            threshold_limit=threshold_lmt,
+            print_e_bill_with_invoice=e_bil_wit_invo,
+            e_invoicing_applicable=e_invo_applic,
+
+        )
+       
+        mdl.save()
+        request.session["cid"]=''
+       
+        return redirect('index_view')
+
+    return render(request, 'create_gst_details.html')

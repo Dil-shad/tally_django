@@ -6,54 +6,163 @@
 
 <div class="container">
     <div class="row ">
+
         <div class="text-center m-4">
             <h4 class="text-decoration-underline">GST Details</h4>
         </div>
 
         <div class="col-1"></div>
         <div class="col-5 border-end" style="min-height:100vh ;">
-            <h5>GST Registraion Details:</h5>
-            <label for="">State:</label>
-            <input type="text" class="form-control w-75 m-1">
+            <form action="{% url 'gst_details' %}" method="post">
+                {% csrf_token %}
+                <h5>GST Registraion Details:</h5>
+                <label for="">State:</label>
+                <input name="ste" type="text" class="form-control w-75 m-1">
 
-            <label for="">Registraion Type:</label>
-            <select name="" id="" class="form-control w-75 m-1">
-                <option value="Regular" selected>Regular</option>
-                <option value="Composition">Composition</option>
-            </select>
-
-
-            <label for="">GST applicable from:</label>
-            <input type="Date" class="form-control w-75 m-1">
-
-            <label for="">GSTIN/UIN:</label>
-            <input type="text" class="form-control w-75 m-1">
+                <label for="">Registraion Type:</label>
+                <select name="reg_tp" id="" class="form-control w-75 m-1">
+                    <option value="Regular" selected>Regular</option>
+                    <option value="Composition">Composition</option>
+                </select>
 
 
-            <label for="">Periodicity of GSTR1:</label>
-            <select name="" id="" class="form-control w-75 m-1">
-                <option value="Monthly" selected>Monthly</option>
-                <option value="Quarterly">Quarterly</option>
-            </select>
+                <label for="">GST applicable from:</label>
+                <input name="gpf" id="date" type="Date" value="2022-04-01" class="form-control w-75 m-1">
+
+                <label for="">GSTIN/UIN:</label>
+                <input name="uin" type="text" class="form-control w-75 m-1">
+
+
+                <label for="">Periodicity of GSTR1:</label>
+                <select name="priod" id="" class="form-control w-75 m-1">
+                    <option value="Monthly" selected>Monthly</option>
+                    <option value="Quarterly">Quarterly</option>
+                </select>
 
 
 
-            <h5 class="mt-4">Additional Features</h5>
-            <label for="" class="float-left">Set/alter GST rate details</label>
-            <select name="MA" id="" class="N form-control  " style="max-width: 70px; position: absolute; right: 10%;">
+                <h5 class="mt-4">Additional Features</h5>
+                <label for="" class="" style="float: left;">Set/alter GST rate details:</label>
+                <select name="alt_gst" id="" class="N form-control "
+                    style="max-width: 70px; float: right;margin-right: 23%;">
+                    <option value="True" selected>Yes</option>
+                    <option value="False">No</option>
+
+                </select>
+
+                <br>
+                <br>
+                <label for="" class="" style="float: left;">Enable tax liabilty on advance receipts:</label>
+                <select name="tax_liab" id="" class="N form-control "
+                    style="max-width: 70px; float: right;margin-right: 23%;">
+                    <option value="True" selected>Yes</option>
+                    <option value="False">No</option>
+
+                </select>
+
+                <br>
+                <br>
+                <label for="" class="" style="float: left;">Enable tax liabilty on reverse charge:</label>
+                <select name="liab_reve" id="" class="N form-control "
+                    style="max-width: 70px; float: right;margin-right: 23%;">
+                    <option value="True" selected>Yes</option>
+                    <option value="False">No</option>
+
+                </select>
+
+                <br>
+                <br>
+                <label for="" class="" style="float: left;">Enable GST clasification:</label>
+                <select name="gst_clasif" id="" class="N form-control "
+                    style="max-width: 70px; float: right;margin-right: 23%;">
+                    <option value="True" selected>Yes</option>
+                    <option value="False">No</option>
+
+                </select>
+
+
+                <br>
+                <br>
+                <label for="" class="" style="float: left;">Enable LUT/Bond details:</label>
+                <select name="bond" id="" class="N form-control "
+                    style="max-width: 70px; float: right;margin-right: 23%;">
+                    <option value="True" selected>Yes</option>
+                    <option value="False">No</option>
+
+                </select>
+
+        </div>
+        <div class="col-4">
+            <h5>Invoice Features</h5>
+
+            <label for="" class="mt-2" style="float: left;">e-Way Bill applicable:</label>
+            <select name="e_bill" id="" class="N form-control w-50 " style=" float: right;">
                 <option value="True" selected>Yes</option>
                 <option value="False">No</option>
 
             </select>
 
+
+
+            <br>
+            <br>
+            <label class="m-0" for="" style="float: left;position: relative;">GST applicable from:</label>
+            <input name="gap_date" type="Date" value="2022-04-01" class="form-control w-50 m-0 " style="float: right;">
+            <br>
+            <br>
+            <label for="" class="mt-2" style="float: left;">Threshold limit includes:</label>
+            <select name="thre_limit_include" id="" class="N form-control w-50 " style=" float: right;">
+                <option value="Invoice value" selected>Invoice value</option>
+                <option value="Taxeble and exempt goods value">Taxeble and exempt goods value</option>
+                <option value="Taxable goods value">Taxable goods value</option>
+
+            </select>
+            <br>
+            <br>
+            <label class="m-0" for="" style="float: left;position: relative;">Threshold limit:</label>
+            <input name="threshold_limit_amt" type="number" class="form-control w-50 m-0 " style="float: right;" placeholder="50,000">
+            <br><br>
+            <label for="" class="mt-2" style="float: left;">Applicable for intrastate:</label>
+            <select name="intrestate" id="" class="N form-control w-50" style=" float: right;">
+                <option value="True" selected>Yes</option>
+                <option value="False">No</option>
+
+            </select>
+
+            <br><br>
+            <label for="" class="mt-2" style="float: left;">e-Way bill with Invoice:</label>
+            <select name="bil_invoi" id="" class="N form-control w-50" style=" float: right;">
+                <option value="True">Yes</option>
+                <option value="False" selected>No</option>
+
+            </select>
+
+            <br><br>
+            <label for="" class="mt-2" style="float: left;">e-Invoicing applicable:</label>
+            <select name="e_invo_applicable" id="" class="N form-control w-50" style=" float: right;">
+                <option value="True">Yes</option>
+                <option value="False" selected>No</option>
+
+            </select>
+
+
+
+
+
         </div>
-        <div class="col-4">
-            <h5>Invoice Features</h5>
+
+
+        <div class="text-center">
+            <button class="btn btn-success m-4 w-25" type="submit">submit</button>
         </div>
-        <div class="col-2"></div>
+        </form>
     </div>
 </div>
-
+<style>
+    h5 {
+        color: rgb(16, 16, 83);
+    }
+</style>
 
 
 
