@@ -1,3 +1,4 @@
+from ast import alias
 import email
 from locale import currency
 from django.db import models
@@ -67,5 +68,19 @@ class GST(models.Model):
     e_invoicing_applicable = models.BooleanField(default=False)
 
 
-class gateway(models.Model):
-    cid = models.ForeignKey(CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+class Selected_Companies_Model(models.Model):
+    cid = models.ForeignKey(
+        CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+
+
+class GroupModel(models.Model):
+    name = models.CharField(max_length=225)
+    alias = models.CharField(max_length=225,null=True)
+    under = models.CharField(max_length=225)
+    gp_behaves_like_sub_ledger = models.BooleanField(default=False)
+    nett_debit_credit_bal_reporting = models.BooleanField(default=False)
+    used_for_calculation = models.BooleanField(default=False)
+    method_to_allocate_usd_purchase = models.CharField(max_length=225,null=True,blank=True)
+
+    def __str__(self):
+        return self.name

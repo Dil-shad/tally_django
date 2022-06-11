@@ -6,13 +6,13 @@
 <div class="container min-h-100vh">
     <div class="row bg-light m-2 p-2">
         <div class="col-6 h-100 p-3">
-            <form action="{% url 'create_company' %}" method="post" enctype="multipart/form-data" class="p-2">
+            <form action="/alter_company/{{obj.id}}" method="post" enctype="multipart/form-data" class="p-2">
                 {% csrf_token %}
                 <label class="" for="">Comapny Name:</label><br>
-                <input name="cname" type="text" class="form-control w-75  my-2 " required>
+                <input required name="cname" type="text" class="form-control w-75  my-2 " required value="{{obj.cname}}">
 
                 <label class="" for="">Address:</label><br>
-                <input name="addr" type="text" class="form-control w-75  my-2" required>
+                <input required name="addr" type="text" class="form-control w-75  my-2" required value="{{obj.address}}">
 
                 <div>
                     <label for="country">Country</label><br>
@@ -29,13 +29,13 @@
 
 
                 <label class="" for="">Pincode:</label><br>
-                <input name="pinco" type="number" class="form-control w-75   my-2">
+                <input required name="pinco" type="number" class="form-control w-75   my-2" value="{{obj.pincode}}">
 
                 <label class="" for="">Telephone:</label><br>
-                <input name="tele" type="tel" class="form-control w-75   my-2">
+                <input required name="tele" type="tel" class="form-control w-75   my-2" value="{{obj.telephone}}">
 
                 <label class="" for="">Mobile:</label><br>
-                <input name="mob" type="number" class="form-control w-75  my-2">
+                <input required name="mob" type="number" class="form-control w-75  my-2" value="{{obj.mobile}}">
 
 
 
@@ -53,30 +53,34 @@
 
 
             <label class="" for="">Fax:</label><br>
-            <input name="fax" type="text" class="form-control w-75  my-2">
+            <input required name="fax" type="text" class="form-control w-75  my-2" value="{{obj.fax}}">
 
 
             <label class="" for="">Email</label><br>
-            <input name="mail" type="email" class="form-control w-75  my-2">
+            <input required name="mail" type="email" class="form-control w-75  my-2" value="{{obj.email}}">
 
             <label class="" for="">Website</label><br>
-            <input name="web" type="text" class="form-control w-75  my-2">
+            <input required name="web" type="text" class="form-control w-75  my-2" value="{{obj.website}}">
 
             <div class="w-100 border-bottom ">
                 <label class="pt-2" for="">Base Currency Symbol:</label><br>
-                <input name="symbol" type="text" class="form-control w-75  my-2" placeholder=" ₹ ">
+                <input required name="symbol" type="text" class="form-control w-75  my-2" placeholder=" ₹ "
+                    value="{{obj.currency_symbol}}">
 
                 <label class="" for="">Formal Name:</label><br>
-                <input name="cny_name" type="text" class="form-control w-75  my-2" placeholder=" INR ">
+                <input required name="cny_name" type="text" class="form-control w-75  my-2" placeholder=" INR "
+                    value="{{obj.currency_formal_name}}">
             </div>
 
             <label class="pt-3" for="">Financial year beginning from:</label><br>
-            <input name="fy_date" type="date" value="2022-04-01" class="form-control w-75  my-2" placeholder=" ">
+            <input required name="fy_date" type="date" value="2022-04-01" class="form-control w-75  my-2" placeholder=" ">
 
             <label class="" for="">Books beginning from:</label><br>
-            <input name="bb_date" type="date" value="2022-04-01" class="form-control w-75  my-2 mt-2" placeholder=" ">
+            <input required name="bb_date" type="date" value="2022-04-01" class="form-control w-75  my-2 mt-2" placeholder=" ">
 
-            <button type="submit" class="btn btn-success float-end mx-5">Next</button>
+           
+                <button type="submit" class="btn btn-success float-end   fw-bold">SAVE</button>
+          
             </form>
         </div>
 
@@ -89,7 +93,7 @@
 
 <script>
     // user country code for selected option
-    let user_country_code = "IN";
+    let user_country_code = "INDIA";
 
     (function () {
         // script https://www.html-code-generator.com/html/drop-down/country-region

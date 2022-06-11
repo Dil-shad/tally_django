@@ -1,5 +1,7 @@
+
 from multiprocessing import context
 from django.shortcuts import render, redirect
+from pymysql import NULL
 
 from .models import *
 from datetime import datetime, date, timedelta
@@ -8,7 +10,18 @@ from django.contrib.auth.models import User, auth
 
 
 def index_view(request):
-    return render(request, 'index.html')
+    obj = CompanyModel.objects.all()
+    sel = Selected_Companies_Model.objects.all()
+    sec = Selected_Companies_Model.objects.get(id=request.session["scid"])
+    grp_under_lst = GroupModel.objects.all().order_by('name')
+
+    context = {
+        'obj': obj,
+        'sc': sel,
+        's': sec,
+        "grp": grp_under_lst,
+    }
+    return render(request, 'index.html', context)
 
 
 def create_company(request):
@@ -115,7 +128,7 @@ def gst_details(request):
 
         pk = request.session["cid"]
         ciid = CompanyModel.objects.get(id=pk)
-        
+
         state = request.POST['ste']
         reg_typ = request.POST['reg_tp']
         gst_af = request.POST['gpf']
@@ -158,10 +171,100 @@ def gst_details(request):
             e_invoicing_applicable=e_invo_applic,
 
         )
-       
+
         mdl.save()
-        request.session["cid"]=''
-       
+        request.session["cid"] = ''
+
         return redirect('index_view')
 
     return render(request, 'create_gst_details.html')
+
+
+def selected_companies(request, pk):
+    try:
+        chk = Selected_Companies_Model.objects.get(cid=pk)
+        print('already exist')
+        n = request.session["scid"]
+        print(n)
+        return redirect('index_view')
+    except:
+        var = CompanyModel.objects.get(id=pk)
+
+        mdl = Selected_Companies_Model(
+            cid=var
+
+        )
+        mdl.save()
+        request.session["scid"] = mdl.id
+        n = request.session["scid"]
+        print(n)
+        print('saved')
+        return redirect('index_view')
+
+
+def shut_company(request, pk):
+
+    mdl = Selected_Companies_Model.objects.get(id=pk)
+    mdl.delete()
+    return redirect('index_view')
+
+
+def alter_company(request, pk):
+    if request.method == 'POST':
+        try:
+            e = CompanyModel.objects.get(id=pk)
+            e.cname = request.POST.get('cname')
+            e.address = request.POST.get('addr')
+            e.country = request.POST.get('country')
+            e.state = request.POST.get('state')
+            e.pincode = request.POST.get('pinco')
+            e.telephone = request.POST.get('tele')
+            e.mobile = request.POST.get('mob')
+            e.fax = request.POST.get('fax')
+            e.email = request.POST.get('mail')
+            e.website = request.POST.get('web')
+            e.currency_symbol = request.POST.get('symbol')
+            e.currency_formal_name = request.POST.get('cny_name')
+            e.financial_year = request.POST.get('fy_date')
+            e.books_beginning_from = request.POST.get('bb_date')
+            e.save()
+            return redirect('index_view')
+        except:
+            pass
+
+    var = Selected_Companies_Model.objects.get(id=pk)
+
+    mdl = CompanyModel.objects.get(id=var.cid.id)
+    context = {
+        'obj': mdl
+    }
+
+    return render(request, 'alter_company.html', context)
+
+
+def create_group(request):
+    if request.method == 'POST':
+        gname = request.POST['gname']
+        alia = request.POST['alia']
+        if len(alia) <= 0:
+            alia = None
+        else:
+            pass
+
+        under = request.POST['und']
+        gp = request.POST['subled']
+        nett = request.POST['nee']
+        calc = request.POST['cal']
+        meth = request.POST['meth']
+
+        mdl = GroupModel(
+            name=gname,
+            alias=alia,
+            under=under,
+            gp_behaves_like_sub_ledger=gp,
+            nett_debit_credit_bal_reporting=nett,
+            used_for_calculation=calc,
+            method_to_allocate_usd_purchase=meth,
+        )
+        mdl.save()
+        return redirect('index_view')
