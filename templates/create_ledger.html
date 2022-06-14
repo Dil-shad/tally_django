@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="conatiner font-monospace">
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class=" bg-light w-100 min-vh-100">
+                    <div class="row border-bottom w-100 mt-1 m-0 p-0" style="min-height: 120px;">
+                        <div class="w-100 border-bottom font-monospace text-black text-center"
+                            style="background-color:#b3d5d8ce ;">
+                            Ledger Creation</div>
+                        <div class="col-9  border">
+                            <div class="float-start  p-4">
+                                <label for="name" class="float-start font-monospace">Name:</label>
+                                <input type="text" class=" w-75 float-end border"><br><br>
+                                <label for="" class="font-monospace float-start">alias:</label>
+                                <input type="text" class=" w-75 float-end border"><br>
+                            </div>
+                        </div>
+                        <div class="col-3 border-bottom text-center">
+                            <p class="border-bottom font-monospace">Total Opening Balance</p>
+                        </div>
+                    </div>
+                    <div id="bdy">
+                        <div class="row">
+
+                            <div class="col-6 p-4">
+                                <label for="name" class="float-start my-2">Under:</label>
+                                <select id="under" name="und" class="w-75 form-control float-end me-5">
+                                    <!-- <option value="primary" selected>*Primary</option> -->
+                                    {% for i in grp %}
+                                    <option onclick="undertaker('{{i.under}}',(this.value))" value="{{i.name}}">
+                                        {{i.name}}
+                                    </option><br>
+                                    {% comment %}
+                                    {% if i.alias is not none %}
+                                    <option onclick="undertaker('{{i.under}}',(this.value))" value="{{i.alias}}">
+                                        {{i.alias}}
+                                    </option>
+                                    {% endif %}
+                                    {% endcomment %}
+                                    {% endfor %}
+                                </select><br>
+
+                                <small class=" mt-3" style="margin-left: 7%;position: static;" id="und"></small>
+
+
+                            </div>
+                            <div id="branch" style="display: none;">
+                                <div class="row" style="position: static;">
+                                    <div class="col-6 p-4 mx-2 border-end float-start"></div>
+                                    <div id="f2" class="col-5 pt-4">
+                                        <h6 class="text-decoration-underline flaot-start mb-3"
+                                            style="color: rgb(52, 52, 134);">
+                                            Mailing Details</h6>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Name:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Address:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">State:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Country:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Pincode</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+
+                                        <h6 class="text-decoration-underline flaot-start mb-3"
+                                            style="color: rgb(52, 52, 134);">
+                                            Tax Registraion Details</h6>
+                                        <div id="grp">
+                                            <label for="" class="float-start">GSTIN/UIN:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Registraion Type:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">PAN/IT No:</label>
+                                            <input type="number" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Set/Alter GST details:</label>
+                                            <input type="number" class="float-end ">
+                                        </div><br><br>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="bnk" style="display: none;">
+                                <div class="row" style="position: static;">
+
+                                    <div id="OD" class="col-6 px-4 mx-2 border-end float-start">
+                                        <label for="" class="float-start">Set OD limit:</label>
+                                        <input type="number" class="float-end  me-5 ">
+                                    </div>
+                                    <div class="col-6 p-4 mx-2 border-end float-start">
+
+                                        <h6 class="text-decoration-underline flaot-start mb-3"
+                                            style="color: rgb(52, 52, 136);">
+                                            Bank Account Details</h6>
+
+                                        <div id="grp">
+                                            <label for="" class="float-start">A/c Holder's Name:</label>
+                                            <input type="text" class="float-end  me-5 ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">A/c No:</label>
+                                            <input type="text" class="float-end  me-5">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">IFSC Code:</label>
+                                            <input type="text" class="float-end me-5">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">SWIFT Code:</label>
+                                            <input type="text" class="float-end  me-5">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Bank Name:</label>
+                                            <input type="text" class="float-end  me-5">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Branch:</label>
+                                            <input type="text" class="float-end  me-5">
+                                        </div><br><br>
+
+                                        <!-- ---------------------------- -->
+                                        <h6 class="text-decoration-underline flaot-start mb-3"
+                                            style="color: rgb(52, 52, 134);">
+                                            Bank Configuaration</h6>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Set/Alter range for cheque Books:</label>
+                                            <select id="subled" name="" class=" float-end me-5  "
+                                                style="max-width: 70px;">
+                                                <option value="True">Yes</option>
+                                                <option value="False" selected>No</option>
+
+                                            </select><br><br>
+                                        </div>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Enable cheque printing:</label>
+                                            <select id="subled" name="" class=" float-end me-5"
+                                                style="max-width: 70px;">
+                                                <option value="True" selected>Yes</option>
+                                                <option value="False">No</option>
+
+                                            </select><br><br>
+                                        </div>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Set/Alter Cheque Printing
+                                                Configuaration:</label>
+                                            <select id="subled" name="" class=" float-end me-5"
+                                                style="max-width: 70px;">
+                                                <option value="True">Yes</option>
+                                                <option value="False" selected>No</option>
+
+                                            </select><br><br>
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <div id="f2" class="col-5 pt-4">
+                                        <h6 class="text-decoration-underline flaot-start mb-3"
+                                            style="color: rgb(52, 52, 134);">
+                                            Mailing Details</h6>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Name:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Address:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">State:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Country:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+                                        <div id="grp">
+                                            <label for="" class="float-start">Pincode</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+
+                                        <h6 class="text-decoration-underline flaot-start mb-3"
+                                            style="color: rgb(52, 52, 134);">
+                                            Tax Registraion Details</h6>
+                                        <div id="grp">
+                                            <label for="" class="float-start">GSTIN/UIN:</label>
+                                            <input type="text" class="float-end ">
+                                        </div><br><br>
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-4"></div>
+                                <div class="col-4 text-center"><label class="" for="">Opening Balance:</label>
+                                    <input type="text" style="border: hidden;" placeholder="000" class="border">
+
+                                    <br>
+                                    <button class="btn btn-success w-25 fw-bold m-2">CREATE</button>
+                                </div>
+                                <div class="col-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script>
+
+
+
+
+
+
+</script>
+
+
+<script>
+
+    function undertaker(a, b) {
+        var val = a;
+        var vin = b;
+        console.log(val, vin)
+        showforms(vin);
+        function showforms(vin) {
+            if (vin == 'Bank Accounts' | vin == 'Bank OD A/c' | vin == 'Bank OCC A/c') {
+                $('#bnk').show()
+                
+                if (vin == 'Bank OD A/c' | vin == 'Bank OCC A/c') {
+                    $('#OD').show()
+                }
+                else {
+                    $('#OD').hide()
+                }
+            } else if (vin == 'Branch/Division') {
+                $('#branch').show()
+               
+               
+            }
+            else {
+                $('#bnk').hide()
+                $('#branch').hide()
+            }
+        }
+        showunder(val);
+        function showunder(val) {
+            if (val == 'primary') {
+                under;
+                document.getElementById('und').innerHTML = ''
+            }
+            else {
+                let under = val
+                document.getElementById('und').innerHTML = '(' + under + ')'
+            }
+        }
+    }
+</script>
+
+
+
+{% endblock body %}

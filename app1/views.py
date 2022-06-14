@@ -1,11 +1,11 @@
-
 from multiprocessing import context
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from pymysql import NULL
-
 from .models import *
 from datetime import datetime, date, timedelta
 from django.contrib.auth.models import User, auth
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
@@ -242,10 +242,16 @@ def alter_company(request, pk):
     return render(request, 'alter_company.html', context)
 
 
+@csrf_exempt
 def create_group(request):
     if request.method == 'POST':
         gname = request.POST['gname']
         alia = request.POST['alia']
+        if len(gname)<=0:
+            return JsonResponse({
+            'status': 00
+        })
+
         if len(alia) <= 0:
             alia = None
         else:
@@ -267,4 +273,18 @@ def create_group(request):
             method_to_allocate_usd_purchase=meth,
         )
         mdl.save()
-        return redirect('index_view')
+        # return redirect('index_view')
+        return JsonResponse({
+            'status': 1
+        })
+
+
+
+
+def create_ledger(request):
+    grp_under_lst = GroupModel.objects.all().order_by('name')
+    context={
+        'grp':grp_under_lst,
+    }
+    return render (request,'create_ledger.html',context)
+    

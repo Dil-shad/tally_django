@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
 {% block body %}
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <div class=" min-vh-100">
-
     <div class="row p-4">
         <div class=" m-0 p-0 col-7 container-fluid">
             <div class=" bg-light border-bottom py-3" style="width: 100%;height: 80px;">
@@ -17,11 +21,9 @@
                     <small>Date</small>
                 </div>
             </div>
-
             <div class="py-4 mt-0" style="border-bottom: solid;">
                 <small class="mx-3" style="float: left;font-size: 12px;">NAME OF COMPANY</small>
                 <small class="mx-2" style="float: right;font-size: 12px;">DATE OF LAST ENTRY</small>
-
             </div>
             <div class="row p-2 h-25 h-auto">
                 <div class="col float-start">
@@ -34,10 +36,6 @@
             <div class="h-auto">
                 {% for i in sc %}
                 <div class="col float-start">
-
-
-
-
                     <p class="mx-2">{{i.cid.cname}}</p>
                 </div><br>
                 <div class="col ">
@@ -45,11 +43,8 @@
                 </div><br>
                 {% endfor %}
             </div>
-
-
         </div>
         <div class="col-4 py-3">
-
             <div id="w1" class=" w-75 p-5 mx-auto h-auto my-auto mt-5"
                 style="position: relative;background-color: rgb(226, 247, 248);min-height: 75vh;">
                 <div class=" w-100 text-center text-white"
@@ -72,10 +67,6 @@
                     <a href="">Ratio Analysis</a><br>
 
                 </div>
-
-
-
-
             </div>
             <div id="w2" class=" w-75 p-5 mx-auto h-auto my-auto mt-5 "
                 style="position: relative;background-color: rgb(226, 247, 248);min-height: 75vh;display: none;">
@@ -88,10 +79,8 @@
 
                     </div><br>
                     <h6 class="my-2 font-monospace">Accounting Masters</h6>
-
-
                     <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Group</a><br>
-                    <a href="">Ledger</a><br>
+                    <a href="{% url 'create_ledger' %}">Ledger</a><br>
                     <a href="">Currency</a><br>
                     <a href="">Voucher Type</a><br>
                     <h6 class="my-2 font-monospace">Inventory Masters</h6>
@@ -103,12 +92,7 @@
                     <h6 class="my-2 font-monospace">Statutory Details</h6><br>
                     <a href="">GST Details</a><br>
                     <a href="">PAN/CIN Details</a><br>
-
-
                 </div>
-
-
-
             </div>
             <div id="w3" class=" w-75 p-5 mx-auto h-auto my-auto mt-5 "
                 style="position: relative;background-color: rgb(226, 247, 248);min-height: 75vh;display: none;">
@@ -118,24 +102,14 @@
                 <div>
                     <div class="border-bottom w-100">
                         <a href="{% url 'create_company' %}">Create Company</a><br>
-
                         <a href="#" onclick="select_company()">Select Company</a><br>
                         <a href="#" onclick="alter_company()">Alter Company</a><br>
                         <a href="#" onclick="shut_company()">Shut Company</a><br>
-
-
                     </div><br>
                     {% for i in sc %}
-                    <a href="#">{{i.cid.cname}}</a><br>
-
+                    <a href="">{{i.cid.cname}}</a><br>
                     {% endfor %}
-
-
-
                 </div>
-
-
-
             </div>
             <div id="shut_cmp" class=" w-75 p-5 mx-auto h-auto my-auto mt-5 "
                 style="position: relative;background-color: rgb(226, 247, 248);min-height: 75vh;display: none;">
@@ -143,18 +117,10 @@
                     style="position: absolute;top: 0;left: 0;background-color: #123d82;">
                     Shut Companies</div>
                 <div>
-
                     {% for i in sc %}
                     <a href="{% url 'shut_company' i.id %}">{{i.cid.cname}}</a><br>
-
                     {% endfor %}
-
-
-
                 </div>
-
-
-
             </div>
             <div id="alter_cmp" class=" w-75 p-5 mx-auto h-auto my-auto mt-5 "
                 style="position: relative;background-color: rgb(226, 247, 248);min-height: 75vh;display: none;">
@@ -162,20 +128,11 @@
                     style="position: absolute;top: 0;left: 0;background-color: #123d82;">
                     Alter Companies</div>
                 <div>
-
                     {% for i in sc %}
                     <a href="{% url 'alter_company' i.id %}">{{i.cid.cname}}</a><br>
-
                     {% endfor %}
-
-
-
                 </div>
-
-
-
             </div>
-
             <div id="w4" class=" w-75 p-5 mx-auto h-auto my-auto mt-5 "
                 style="position: relative;background-color: rgb(226, 247, 248);min-height: 75vh;display: none;">
                 <div class=" w-100 text-center text-white"
@@ -203,9 +160,7 @@
             <div class="col-1"></div>
         </div>
     </div>
-    <!-- Button trigger modal -->
 
-    <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -214,18 +169,19 @@
                     <h5 class="modal-title" id="staticBackdropLabel">Create Group</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{% url 'create_group' %}" method="post">
+                <form id="myForm" action="{% url 'create_group' %}" method="post">
                     {% csrf_token %}
                     <div class="modal-body p-3">
                         <div class="row">
                             <div class="col-9 ">
                                 <div class="">
-                                    <label for="name" class="float-start my-2">Name:</label>
-                                    <input name="gname" type="text" class="float-end w-50 my-2" required><br><br>
+                                    <label id="kk" for="name" class="float-start my-2">Name:</label>
+                                    <input id="gname" value="" onfocus="this.value=''" name="gname" type="text"
+                                        class="float-end w-50 my-2" required><br><br>
                                     <label for="name" class="float-start my-2">(Alias):</label>
-                                    <input name="alia" type="text" class="float-end w-50 my-2"><br><br><br>
+                                    <input id="alia" name="alia" type="text" class="float-end w-50 my-2"><br><br><br>
                                     <label for="name" class="float-start my-2">Under:</label>
-                                    <select name="und" id="" class="w-50 form-control float-end ">
+                                    <select id="under" name="und" class="w-50 form-control float-end ">
                                         <option value="primary" selected>*Primary</option>
 
                                         {% for i in grp %}
@@ -246,7 +202,7 @@
                                     <label for="name" class="float-start mt-2 " style="font-size: 14px;">Groups behaves
                                         like
                                         a sub-ledger:</label>
-                                    <select name="subled" id="" class=" float-end  mt-2" style="max-width: 70px;">
+                                    <select id="subled" name="subled" class=" float-end  mt-2" style="max-width: 70px;">
                                         <option value="True">Yes</option>
                                         <option value="False" selected>No</option>
 
@@ -254,7 +210,7 @@
                                     <label for="name" class="float-start mt-2" style="font-size: 14px;">Nett
                                         Debit/Credit
                                         Balance for Reporting:</label>
-                                    <select name="nee" id="" class=" float-end  mt-2" style="max-width: 70px;">
+                                    <select id="nett" name="nee" class=" float-end  mt-2" style="max-width: 70px;">
                                         <option value="True">Yes</option>
                                         <option value="False" selected>No</option>
 
@@ -263,14 +219,14 @@
                                         calculation
                                         <br><small style="font-size: 10px;">(for example:taxes,discounts,Sales invoice
                                             entries)</small>:</label>
-                                    <select name="cal" id="" class=" float-end  mt-2" style="max-width: 70px;">
+                                    <select id="cal" name="cal" class=" float-end  mt-2" style="max-width: 70px;">
                                         <option value="True">Yes</option>
                                         <option value="False" selected>No</option>
 
                                     </select><br><br>
                                     <label for="name" class="float-start mt-2" style="font-size: 14px;">
                                         Method to allocate when used <br> in purchase invoice:</label>
-                                    <select name="meth" id="" class=" float-end  mt-2" style="max-width: 100px;">
+                                    <select id="meth" name="meth" class=" float-end  mt-2" style="max-width: 140px;">
                                         <option value="" selected>Not Applicable</option>
                                         <option value="Appropriate by Qty">Appropriate by Qty</option>
                                         <option value="Appropriate by Value">Appropriate by Value</option>
@@ -283,14 +239,63 @@
                     </div>
 
                     <div class="modal-footer">
+
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button id="cbtn" type="button" class="btn btn-primary">Create</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        $('#cbtn').click(function () {
 
+            let gname = $('#gname').val()
+            let alia = $('#alia').val()
+            let under = $('#under').val()
+            let subled = $('#subled').val()
+            let nett = $('#nett').val()
+            let cal = $('#cal').val()
+            let meth = $('#meth').val()
+            if (alia == "") {
+                alia;
+                console.log("alia is none;")
+            }
+            dic = {
+                gname: gname,
+                alia: alia,
+                und: under,
+                subled: subled,
+                nee: nett,
+                cal: cal,
+                meth: meth,
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "create_group" %}',
+                data: dic,
+                dataType: "json",
+                success: function (arg) {
+                    if (arg.status === 1) {
+                        document.getElementById("myForm").reset();
+                        alert('Group added Successfuly..!!')
+
+                    }
+                    else if (arg.status === 00) {
+                        alert("Not Valid")
+                    }
+                    else {
+                        alert('unseccess')
+                    }
+
+                }
+
+
+            })
+        })
+
+    </script>
     <script>
 
         let w1 = document.getElementById('w1')
@@ -332,8 +337,6 @@
 
             w6.style.display = "block"
         }
-
-
 
     </script>
     <style>

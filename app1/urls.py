@@ -14,6 +14,8 @@ urlpatterns = [
     path('shut_company/<int:pk>',shut_company,name='shut_company'),
     path('alter_company/<int:pk>',alter_company,name='alter_company'),
     path('create_group',create_group,name="create_group"),
+    path('create_ledger',create_ledger,name='create_ledger'),
+    
     
 
     
