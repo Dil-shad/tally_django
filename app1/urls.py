@@ -15,6 +15,10 @@ urlpatterns = [
     path('alter_company/<int:pk>',alter_company,name='alter_company'),
     path('create_group',create_group,name="create_group"),
     path('create_ledger',create_ledger,name='create_ledger'),
+    path('log_company/<int:pk>',log_company,name='log_company'),
+    path('create_voucher',create_voucher,name='create_voucher'),
+    
+    
     
     
 

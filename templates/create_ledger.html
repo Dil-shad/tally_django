@@ -21,13 +21,13 @@
                     <div class="row border-bottom w-100 mt-1 m-0 p-0" style="min-height: 120px;">
                         <div class="w-100 border-bottom font-monospace text-black text-center"
                             style="background-color:#b3d5d8ce ;">
-                            Ledger Creation</div>
+                            Ledger Creation [{{s.cname}}]</div>
                         <div class="col-9  border">
                             <div class="float-start  p-4">
                                 <label for="name" class="float-start font-monospace">Name:</label>
-                                <input name="Lname" type="text" class=" w-75 float-end border"><br><br>
+                                <input name="Lname" type="text" class=" w-75 float-end border" required><br><br>
                                 <label for="" class="font-monospace float-start">alias:</label>
-                                <input name="Lalias" type="text" class=" w-75 float-end border"><br>
+                                <input name="Lalias" type="text" class=" w-75 float-end border" required><br>
                             </div>
                         </div>
                         <div class="col-3 border-bottom text-center">
@@ -39,20 +39,21 @@
 
                             <div class="col-6 p-4">
                                 <label for="name" class="float-start my-2">Under:</label>
-                                <select id="under" name="Lund" class="w-75 form-control float-end me-5">
+                                <select required id="under" onchange="h();" name="Lund"
+                                    class="w-75 form-control float-end me-5">
                                     <!-- <option value="primary" selected>*Primary</option> -->
-                                    <option value="" selected disabled>select</option>
+                                    <option value="" selected disabled>select group</option>
                                     {% for i in grp %}
                                     <option onclick="undertaker('{{i.under}}',(this.value))" value="{{i.name}}">
                                         {{i.name}}
                                     </option><br>
-                                    {% comment %}
+
                                     {% if i.alias is not none %}
                                     <option onclick="undertaker('{{i.under}}',(this.value))" value="{{i.alias}}">
                                         {{i.alias}}
                                     </option>
                                     {% endif %}
-                                    {% endcomment %}
+
                                     {% endfor %}
                                 </select><br>
 
@@ -64,10 +65,11 @@
                             <div id="all">
                                 <div class="row" style="position: static;">
 
-                                    <div id="OD" class="col-6 px-4 mx-2 border-end float-start">
+                                    <div id="OD" class="col-6 px-4 mx-2 border-end float-start" style="display: none;">
                                         <label for="" class="float-start">Set OD limit:</label>
                                         <input name="B_od_limit" type="number" class="float-end  me-5 ">
                                     </div>
+
                                     <div id="ledg" class="col-6 p-4 mx-2 border-end float-start" style="display: none;">
                                     </div>
                                     <div class="col-6 p-4 mx-2 border-end float-start">
@@ -136,17 +138,79 @@
                                             </select><br><br>
                                         </div> -->
                                         </div>
+                                        <div id="main_balance_bill_" style="display: none;">
+                                            <label for="" class="float-start">Maintain balances bill-by-bill:</label>
+                                            <select id="subled" name="main_balance_bill_" class=" float-end me-5">
+                                                <option value="True" selected>Yes</option>
+                                                <option value="False">No</option>
+                                            </select><br><br>
+                                        </div>
+                                        <div id="def_cr_period" style="display: none;">
+                                            <label for="" class="float-start">Default credit period:</label>
+
+                                            <input name="def_cr_period" type="text" class="float-end  me-5">
+                                            <br><br>
+                                        </div>
+
+                                        <div id="chk_credit_days" style="display: none;">
+                                            <label for="" class="float-start">check for credit days during voucher
+                                                entry:</label>
+                                            <select id="subled" name="chk_credit_days" class=" float-end me-5">
+                                                <option value="True" selected>Yes</option>
+                                                <option value="False">No</option>
+                                            </select><br><br>
+                                        </div>
+                                        <div id="typ_of_ledg" style="display: none;">
+                                            <label for="" class="float-start">Type of Ledger:</label>
+                                            <select id="subled" name="typ_of_ledg" class=" float-end ">
+                                                <option value="" selected>Not applicable</option>
+                                                <option value="Discount">Discount</option>
+                                                <option value="Invoice Rounding">Invoice Rounding</option>
+                                            </select><br><br>
+                                        </div>
+                                        <div id="typ_of_duty" style="display: none;">
+                                            <label for="" class="float-start">Type of duty/tax:</label>
+                                            <select id="subled" name="typ_of_duty" class=" float-end me-5">
+                                                <option value="Others" selected>Others</option>
+                                                <option value="GST">GST</option>
+
+                                            </select><br><br>
+                                        </div>
+                                        <div id="percet_of_calc" style="display: none;">
+                                            <label for="" class="float-start">Percentage of calculation:</label>
+                                            <input placeholder="0%" name="percet_of_calc" type="text"
+                                                class="float-end  me-5">
+                                        </div>
                                         <div id="Satutory_details" style="display: none;;">
                                             <h6 class="text-decoration-underline flaot-start mb-3"
                                                 style="color: rgb(52, 52, 134);">
                                                 Statutory Details</h6>
-                                               <div id="assemble_satu">
-                                                <label for="" class="float-start">include in assessable calculation for:</label>
+                                            <div id="assemble_satu" style="display: none;">
+                                                <label for="" class="float-start">include in assessable calculation
+                                                    for:</label>
                                                 <select id="subled" name="assemble_value" class=" float-end ">
                                                     <option value="">Not applicable</option>
                                                     <option value="GST">GST</option>
+                                                </select><br><br>
+                                            </div>
+                                            <div id="is_gst_applicable" style="display: none;">
+                                                <label for="" class="float-start">Is GST applicable:</label>
+                                                <select id="subled" name="is_gst_applicable" class=" float-end ">
+                                                    <option value="Applicable" selected>Applicable</option>
+                                                    <option value="">Not applicable</option>
+                                                    <option value="Undefined">Undefined</option>
+                                                </select><br><br>
+                                            </div>
+
+                                            <div id="typ_of_suply" style="display: none;">
+                                                <label for="" class="float-start">Type of Supply:</label>
+                                                <select id="subled" name="typ_of_supply" class=" float-end ">
+                                                    <option value="Goods">Goods</option>
+                                                    <option value="" selected>Service</option>
+
                                                 </select>
-                                               </div>
+                                            </div>
+
 
                                         </div>
 
@@ -156,31 +220,32 @@
                                     </div>
                                     <div id="f2" class="col-5 pt-4">
                                         <div id="">
-                                            <h6 class="text-decoration-underline flaot-start mb-3"
-                                                style="color: rgb(52, 52, 134);">
-                                                Mailing Details</h6>
-                                            <div id="mail_name">
+
+                                            <div id="mail_name" style="display: none;">
+                                                <h6 class="text-decoration-underline flaot-start mb-3"
+                                                    style="color: rgb(52, 52, 134);">
+                                                    Mailing Details</h6>
                                                 <label for="" class="float-start">Name:</label>
                                                 <input name="Mname" type="text" class="float-end ">
                                             </div><br><br>
-                                            <div id="mail_address">
+                                            <div id="mail_address" style="display: none;">
                                                 <label for="" class="float-start">Address:</label>
                                                 <input name="Maddress" type="text" class="float-end ">
                                             </div><br><br>
-                                            <div id="mail_state">
+                                            <div id="mail_state" style="display: none;">
                                                 <label for="" class="float-start">State:</label>
                                                 <input name="Mstate" type="text" class="float-end ">
                                             </div><br><br>
-                                            <div id="mail_country">
+                                            <div id="mail_country" style="display: none;">
                                                 <label for="" class="float-start">Country:</label>
                                                 <input name="Mcountry" type="text" class="float-end ">
                                             </div><br><br>
-                                            <div id="mail_pincode">
+                                            <div id="mail_pincode" style="display: none;">
                                                 <label for="" class="float-start">Pincode</label>
                                                 <input name="Mpincode" type="text" class="float-end ">
                                             </div><br><br>
                                         </div>
-                                        <div id="provide_banking" class="Banking_details">
+                                        <div id="provide_banking" class="Banking_details" style="display: none;">
                                             <h6 class="text-decoration-underline flaot-start mb-3"
                                                 style="color: rgb(52, 52, 134);">
                                                 Provide Banking Details</h6>
@@ -192,30 +257,32 @@
                                                 </select>
                                             </div><br><br>
                                         </div>
+
                                         <div id="tax_resgistration_details">
-                                            <h6 class="text-decoration-underline flaot-start mb-3"
-                                                style="color: rgb(52, 52, 134);">
-                                                Tax Registraion Details</h6>
-                                            <div id="tax_uin">
+
+                                            <div id="tax_uin" style="display: none;">
+                                                <h6 class="text-decoration-underline flaot-start mb-3"
+                                                    style="color: rgb(52, 52, 134);">
+                                                    Tax Registraion Details</h6>
                                                 <label for="" class="float-start">GSTIN/UIN:</label>
                                                 <input name="Tgst_uin" type="text" class="float-end ">
                                             </div><br><br>
-                                            <div id="tax_reg_typ">
+                                            <div id="tax_reg_typ" style="display: none;">
                                                 <label for="" class="float-start">Registraion Type:</label>
                                                 <select id="subled" name="Treg_typ"
                                                     class=" float-end form-control w-25">
-                                                    <option value=" Unknown" selected>Unknown</option>
+                                                    <option value="" selected>Unknown</option>
                                                     <option value="Composition">Composition</option>
                                                     <option value="Consumer">Consumer</option>
                                                     <option value="Regular">Regular</option>
                                                     <option value="Unregistered">Unregistered</option>
                                                 </select>
                                             </div><br><br>
-                                            <div id="tax_pan">
+                                            <div id="tax_pan" style="display: none;">
                                                 <label for="" class="float-start">PAN/IT No:</label>
                                                 <input name="Tpan_no" type="number" class="float-end ">
                                             </div><br><br>
-                                            <div id="tax_alter_gst">
+                                            <div id="tax_alter_gst" style="display: none;">
                                                 <label for="" class="float-start">Set/Alter GST details:</label>
                                                 <select id="subled" name="T_alter_gst" class=" float-end ">
                                                     <option value="True">Yes</option>
@@ -223,7 +290,7 @@
                                                 </select>
                                             </div><br><br>
                                         </div>
-                                        
+
 
                                     </div>
                                 </div>
@@ -259,23 +326,7 @@
 
 
 <script>
-    $(document).ready(function () {
-        $('#OD').hide()
-        $('#provide_banking').hide()
-        $('#bank_ac_details')
-        $('#all').hide()
-        $('#tax_resgistration_details')
-        $('#tax_uin').hide()
-        $('#tax_reg_typ').hide()
-        $('#tax_pan').hide()
-        $('#tax_alter_gst').hide()
-        $('#mail_state').hide()
-        $('#mail_country').hide()
-        $('#mail_pincode').hide()
-        $('#mail_name').hide()
-        $('#Satutory_details').hide()
-        
-    });
+    $(document).ready();
 </script>
 
 

@@ -27,7 +27,7 @@
             </div>
             <div class="row p-2 h-25 h-auto">
                 <div class="col float-start">
-                    <p class="mx-2"><strong>{{s.cid.cname}}</strong></p>
+                    <p class="mx-2"><strong>{{s.cname}}</strong></p>
                 </div>
                 <div class="col ">
                     <p class="mx-3 float-end">No Vouchers Entered</p>
@@ -36,7 +36,8 @@
             <div class="h-auto">
                 {% for i in sc %}
                 <div class="col float-start">
-                    <p class="mx-2">{{i.cid.cname}}</p>
+                    <p class="mx-2"><a href="{% url 'log_company' i.cid.id %}">{{i.cid.cname}}</a>
+                    <p>
                 </div><br>
                 <div class="col ">
                     <p class="mx-3 float-end">No Vouchers Entered</p>
@@ -82,7 +83,7 @@
                     <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Group</a><br>
                     <a href="{% url 'create_ledger' %}">Ledger</a><br>
                     <a href="">Currency</a><br>
-                    <a href="">Voucher Type</a><br>
+                    <a href="{% url 'create_voucher' %}">Voucher Type</a><br>
                     <h6 class="my-2 font-monospace">Inventory Masters</h6>
                     <a href="">Stock Group</a><br>
                     <a href="">Stock Category</a><br>
@@ -107,7 +108,7 @@
                         <a href="#" onclick="shut_company()">Shut Company</a><br>
                     </div><br>
                     {% for i in sc %}
-                    <a href="">{{i.cid.cname}}</a><br>
+                    <a href="{% url 'log_company' i.cid.id %}">{{i.cid.cname}}</a><br>
                     {% endfor %}
                 </div>
             </div>
@@ -344,9 +345,6 @@
             text-decoration: none;
         }
 
-        a:hover {
-            background-color: rgb(255, 251, 0);
-            width: 100%;
-        }
+        
     </style>
     {% endblock body %}
