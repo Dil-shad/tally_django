@@ -1,3 +1,4 @@
+
 from ast import alias
 import email
 from locale import currency
@@ -159,3 +160,23 @@ class LedgerSatutoryModel(models.Model):
     assessable_calculation = models.CharField(max_length=225)
     gst_applicable = models.CharField(max_length=225)
     type_of_supply = models.CharField(max_length=225)
+
+
+class VoucherModel(models.Model):
+    voucher_name = models.CharField(max_length=225)
+    alias = models.CharField(max_length=225)
+    voucher_type = models.CharField(max_length=225)
+    abbreviation = models.CharField(max_length=225)
+    active_this_voucher_type = models.BooleanField()
+    method_voucher_numbering = models.CharField(max_length=225)
+    use_effective_date = models.BooleanField()
+    allow_zero_value_trns = models.BooleanField()
+    allow_naration_in_voucher = models.BooleanField()
+    enable_default_ac_allocation = models.BooleanField()
+    track_additional_cost_purchase = models.BooleanField()
+    use_as_manf_journal = models.BooleanField()
+    print_voucher_af_save = models.BooleanField()
+    print_formal_recept = models.BooleanField()
+    default_juridiction = models.CharField(max_length=225)
+    default_title = models.CharField(max_length=225)
+    alter_decalaration = models.BooleanField()

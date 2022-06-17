@@ -1,25 +1,213 @@
 {% extends 'base.html' %}
 {% block body%}
+{% load static %}
+<script src="{% static 'js/script_voucher.js' %}"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <div class="container">
-    <div class="row mt-3 border-bottom">
-        <div class="col-4">
-            <label for="" class="float-left">Name:</label>
-            <input type="text" class="float-end" name="" id=""><br><br>
-            <label for="" class="float-start">alias:</label>
-            <input type="text" class="float-end" name="" id=""><br>
+    <form action="{% url 'create_voucher' %}" method="post">
+        {% csrf_token %}
+
+        <div class="row mt-3 border-bottom">
+            <div class="col-4 py-3">
+                <label for="" class="float-left">Name:</label>
+                <input type="text" class="float-end" name="nam" id=""><br><br>
+                <label for="" class="float-start">alias:</label>
+                <input type="text" class="float-end" name="alias" id=""><br>
+            </div>
+            <div class="col-8"></div>
         </div>
-        <div class="col-8"></div>
-    </div>
-    <div class="row">
-        <div class="col-5"></div>
-        <div class="col-5"></div>
-        <div class="col-2"></div>
-    </div>
+        <div class="row py-3">
+            <div class="col-5 border-end ">
+                <div class="text-center text-decoration-underline font-monospace">
+                    General
+                </div>
+
+                <div id="c" class="mt-3">
+                    <label for="" class="float-start">Select type of voucher:</label>
+                    <select required onchange="h()" name="vtype" id="" class="float-end me-1">
+                        <option onclick="typ_of_voucher(this.value)" value="" selected disabled>select type</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Attendence">Attendence</option>
+                        <option onclick="typ_of_voucher(this.value)" value="contra">Contra</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Credit Note">Credit Note</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Debit Note">Debit Note</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Delivery Note">Delivery Note</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Job Work in Order">Job work in Order
+                        </option>
+                        <option onclick="typ_of_voucher(this.value)" value="Job Work Out Order">Job Work Out Order
+                        </option>
+                        <option onclick="typ_of_voucher(this.value)" value="Journal">Journal</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Material In">Material In</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Material Out">Material Out</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Memorandum">Memorandum</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Payment">Payment</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Payroll">Payroll</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Physical Stock">Physical Stock</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Purchase">Purchase</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Purchase Order">Purchase Order</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Receipt">Receipt</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Receipt Note">Receipt Note</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Rejection In">Rejection In</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Rejection Out">Rejection Out</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Reversing Journal">Reversing Journal
+                        </option>
+                        <option onclick="typ_of_voucher(this.value)" value="Sales">Sales</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Sales Order">Sales Order</option>
+                        <option onclick="typ_of_voucher(this.value)" value="Stock Journal">Stock Journal</option>
+                    </select><br><br>
+                </div>
+                <div id="c">
+                    <label for="" class="float-start">Abbreviation</label>
+                    <input name="abbre" type="text" class="w-25 float-end me-1"><br><br>
+                </div>
+                <div id="c">
+                    <label for="" class="float-start">Active this Voucher Type:</label>
+                    <select name="avtyp" class="float-end me-1 w-25" id="">
+                        <option value="True" selected>Yes</option>
+                        <option value="False">No</option>
+
+                    </select><br><br>
+                </div>
+                <div id="c">
+                    <label for="" class="float-start">Method of voucher numbering:</label>
+                    <select name="meth_vou_num" class="float-end me-1 w-25" id="">
+                        <option value="Automatic">Automatic</option>
+                        <option value="Automatic(Manual Override)">Automatic(Manual Override)</option>
+                        <option value="Manual">Manual</option>
+                        <!-- <option value="Multi-user Auto">Multi-user Auto</option> -->
+                        <option value="" selected>None</option>
+                    </select><br><br>
+                    <div>
+
+                    </div>
+                </div>
+                <div id="c">
+                    <label for="" class="float-start">Use effective dates for vouchers:</label>
+                    <select name="uefftdate" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div>
+                <div id="c">
+                    <label for="" class="float-start">Allow zero-value transactions:</label>
+                    <select name="allow_zero_trans" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div>
+                <!-- <div id="opt_default">
+                    <label for="" class="float-start">Make this voucher type as 'Optional'by default</label>
+                    <select name="" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div> -->
+                <div id="c">
+                    <label for="" class="float-start">Allow narration in voucher:</label>
+                    <select name="allow_naration_in_vou" class="float-end me-1 w-25" id="">
+                        <option value="True" selected>Yes</option>
+                        <option value="False">No</option>
+
+                    </select><br><br>
+                </div>
+                <!-- <div id="pr">
+                    <label for="" class="float-start">Provide narrations for each ledger in voucher:</label>
+                    <select name="" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div> -->
+                <div id="acc_allocation" style="display:none;">
+                    <label for="" class="float-start">Enable default accounting allocation:</label>
+                    <select name="enbl_def_accout_alloc" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div>
+                <div id="adtl_cost_for_purch" style="display:none;">
+                    <label for="" class="float-start">Track Additional Coasts for Purchase:</label>
+                    <select name="track_addi_coast" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div>
+                <div id="manfact_jou" style="display:none;">
+                    <label for="" class="float-start">Use as a manufacturing Journal:</label>
+                    <select name="use_as_manfacturing_journal" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div>
+            </div>
+
+            <div class="col-5 border-end ">
+
+                <div class="text-center text-decoration-underline font-monospace p-1">
+                    Printing
+                </div>
+                <div id="print_voucher" style="display:none;">
+                    <label for="" class="float-start">Print Voucher after saving:</label>
+                    <select name="print_vou_aft_save" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div>
+                <div id="print_formal" style="display:none;">
+                    <label for="" class="float-start">Print formal receipt after saving:</label>
+                    <select name="print_formal_recept" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div>
+                <div id="def_jur" style="display:none;">
+                    <label for="" class="float-start">Default jurisdiction:</label>
+                    <input type="text" class="w-25 float-end me-1" name="def_juri"><br><br>
+                </div>
+                <div id="def_title" style="display:none;">
+                    <label for="" class="float-start">Default title to print:</label>
+                    <input name="default_title" type="text" class="w-25 float-end me-1"><br><br>
+                </div>
+                <div id="se_alter" style="display:none;">
+                    <label for="" class="float-start">Set/alter declaration:</label>
+                    <select name="alte_declaration" class="float-end me-1 w-25" id="">
+                        <option value="True">Yes</option>
+                        <option value="False" selected>No</option>
+
+                    </select><br><br>
+                </div>
+            </div>
+            <div class="col-2">
+
+                <div class="text-center text-decoration-underline font-monospace">
+                    Name of Class
+                </div>
+            </div>
+        </div>
+        <div class="text-center m-3">
+            <button type="submit" class="btn btn-success">CREATE VOUCHER</button>
+        </div>
+    </form>
 </div>
 
 
 
 
+<script>
 
+</script>
 
 {% endblock body%}

@@ -410,6 +410,7 @@ def create_ledger(request):
 
         )
         LS_mdl.save()
+        return redirect('index_view')
 
     grp_under_lst = GroupModel.objects.all().order_by('name')
     sec = CompanyModel.objects.get(id=request.session["scid"])
@@ -421,6 +422,49 @@ def create_ledger(request):
 
 
 def create_voucher(request):
+    if request.method == 'POST':
+        Vname = request.POST['nam']
+        alias = request.POST['alias']
+        vtype = request.POST['vtype']
+        abbre = request.POST['abbre']
+        activ_vou_typ = request.POST['avtyp']  # bool
+        meth_vou_num = request.POST['meth_vou_num']
+        use_effct_date = request.POST['uefftdate']  # bool
+        allow_zero_trans = request.POST['allow_zero_trans']  # bool
+        allow_naration_in_vou = request.POST['allow_naration_in_vou']  # bool
+        enbl_def_accout_alloc = request.POST['enbl_def_accout_alloc']  # bool
+        track_addi_coast = request.POST['track_addi_coast']  # bool
+        # bool
+        use_as_manfacturing_journal = request.POST['use_as_manfacturing_journal']
+        #
+        print_vou_aft_save = request.POST['print_vou_aft_save']  # b
+        print_formal_recept = request.POST['print_formal_recept']  # b
+        def_juri = request.POST['def_juri']
+        default_title = request.POST['default_title']
+        alte_declaration = request.POST['alte_declaration']  # b
+
+        mdl = VoucherModel(
+            voucher_name=Vname,
+            alias=alias,
+            voucher_type=vtype,
+            abbreviation=abbre,
+            active_this_voucher_type=activ_vou_typ,
+            method_voucher_numbering=meth_vou_num,
+            use_effective_date=use_effct_date,
+            allow_zero_value_trns=allow_zero_trans,
+            allow_naration_in_voucher=allow_naration_in_vou,
+            enable_default_ac_allocation=enbl_def_accout_alloc,
+            track_additional_cost_purchase=track_addi_coast,
+            use_as_manf_journal=use_as_manfacturing_journal,
+            print_voucher_af_save=print_vou_aft_save,
+            print_formal_recept=print_formal_recept,
+            default_juridiction=def_juri,
+            default_title=default_title,
+            alter_decalaration=alte_declaration,
+
+        )
+        mdl.save()
+        return redirect('index_view')
 
     context = {
 
