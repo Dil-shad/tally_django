@@ -82,17 +82,203 @@
                     <h6 class="my-2 font-monospace">Accounting Masters</h6>
                     <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">Group</a><br>
                     <a href="{% url 'create_ledger' %}">Ledger</a><br>
-                    <a href="">Currency</a><br>
+                    <a href="" data-toggle="modal" data-target="#exampleModalCenter">Currency</a><br>
                     <a href="{% url 'create_voucher' %}">Voucher Type</a><br>
                     <h6 class="my-2 font-monospace">Inventory Masters</h6>
-                    <a href="">Stock Group</a><br>
-                    <a href="">Stock Category</a><br>
+                    <a href="#" onclick="$('#stock_group').modal('show')">Stock Group</a><br>
+                    <a href="#" onclick="$('#stock_category').modal('toggle')">Stock Category</a><br>
                     <a href="">Stock Item</a><br>
                     <a href="">Unit</a><br>
                     <a href="">Location</a><br>
                     <h6 class="my-2 font-monospace">Statutory Details</h6><br>
                     <a href="">GST Details</a><br>
                     <a href="">PAN/CIN Details</a><br>
+                </div>
+            </div>
+            <div class="modal fade" id="stock_category" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Stock Category Creation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="stock_category_form" action="#" method="post">
+                            {% csrf_token %}
+                            <div class="modal-body p-3">
+                                <div class="row">
+                                    <div class="col-9 ">
+                                        <div class="">
+                                            <label id="kk" for="name" class="float-start my-2">Name:</label>
+                                            <input id="st_cat_name" value="" onfocus="this.value=''" type="text"
+                                                class="float-end w-50 my-2" required><br><br>
+                                            <label for="name" class="float-start my-2">(Alias):</label>
+                                            <input id="st_cat_alias" type="text"
+                                                class="float-end w-50 my-2"><br><br><br>
+                                            <label for="name" class="float-start my-2">Under:</label>
+                                            <select id="st_gp_under" name="und" class="w-50 form-control float-end ">
+                                                <option value="primary" selected>*Primary</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button id="st_cat_btn" type="button" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- stock group pop -->
+            <div class="modal fade" id="stock_group" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Stock Group Creation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="stock_group_form" action="" method="post">
+                            {% csrf_token %}
+                            <div class="modal-body p-3">
+                                <div class="row">
+                                    <div class="col-9 ">
+                                        <div class="">
+                                            <label id="kk" for="name" class="float-start my-2">Name:</label>
+                                            <input id="st_gp_name" value="" onfocus="this.value=''" type="text"
+                                                class="float-end w-50 my-2" required><br><br>
+                                            <label for="name" class="float-start my-2">(Alias):</label>
+                                            <input id="st_gp_alias" type="text" class="float-end w-50 my-2"><br><br><br>
+                                            <label for="name" class="float-start my-2">Under:</label>
+                                            <select id="st_gp_under" name="und" class="w-50 form-control float-end ">
+                                                <option value="primary" selected>*Primary</option>
+
+                                            </select>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div>
+                                            <label for="name" class="float-start mt-2 " style="font-size: 14px;">Groups
+                                                Should quantities of item be added:</label>
+                                            <select id="sqan_itm_be_added" name="subled" class=" float-end  mt-2"
+                                                style="max-width: 70px;">
+                                                <option value="True">Yes</option>
+                                                <option value="False" selected>No</option>
+
+                                            </select><br><br>
+                                            <label for="name" class="float-start mt-2 " style="font-size: 14px;">
+                                                Set/Alter GST Details:</label>
+                                            <select id="sqan_itm_be_added" name="subled" class=" float-end  mt-2"
+                                                style="max-width: 70px;">
+                                                <option value="True">Yes</option>
+                                                <option value="False" selected>No</option>
+
+                                            </select><br><br>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button id="st_gp_btn" type="button" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Currency Creation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <form id="currency_form" action="" method="post">
+                                    {% csrf_token %}
+
+                                    <div class="col-1"></div>
+                                    <div class="col-10">
+                                        <div id="c">
+                                            <label for="" class="float-start">Symbol</label>
+                                            <input id="c_symbol" type="text" class="float-end w-25" required>
+                                        </div><br>
+                                        <div id="c" class="mt-3">
+                                            <label for="" class="float-start">Formal name:</label>
+                                            <input id="c_fname" type="text" class="float-end w-25" required>
+                                        </div><br>
+                                        <div id="c" class="mt-3">
+                                            <label for="" class="float-start">ISO currency Code:</label>
+                                            <input id="c_iso_code" type="text" class="float-end w-25" required>
+                                        </div><br>
+                                        <div id="c" class="mt-3">
+                                            <label for="" class="float-start">Number of decimal places:</label>
+                                            <input id="c_decimal_pls" type="text" class="float-end w-25">
+                                        </div><br>
+                                        <div id="c" class="mt-3">
+                                            <label for="" class="float-start">Show amount in millions:</label>
+                                            <select name="" id="c_amount_millons" class="float-end w-25">
+                                                <option value="True">Yes</option>
+                                                <option value="False" selected>No</option>
+
+                                            </select>
+                                        </div><br>
+                                        <div id="c" class="mt-3">
+                                            <label for="" class="float-start">Suffix symbol to amount:</label>
+                                            <select name="" id="c_suffix" class="float-end w-25">
+                                                <option value="True">Yes</option>
+                                                <option value="False" selected>No</option>
+
+                                            </select>
+                                        </div><br>
+                                        <div id="c" class="mt-3">
+                                            <label for="" class="float-start">space between amount and symbol:</label>
+                                            <select name="" id="c_space" class="float-end w-25">
+                                                <option value="True">Yes</option>
+                                                <option value="False" selected>No</option>
+
+                                            </select>
+                                        </div><br>
+                                        <div id="c" class="mt-3">
+                                            <label for="" class="float-start">word representing amount <br>after
+                                                decimal:</label><br>
+                                            <input id="c_word_rep" type="text" class="float-end w-25">
+                                        </div><br>
+                                        <div id="c" class="mt-3">
+                                            <label for="" class="float-start">No.of decimal places for <br>amount after
+                                                decimal:</label><br>
+                                            <input id="c_decimal_places" type="text" class="float-end w-25">
+                                        </div><br>
+                                    </div>
+
+                                    <div class="col-1"></div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="add_currency" type="button" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="w3" class=" w-75 p-5 mx-auto h-auto my-auto mt-5 "
@@ -248,6 +434,156 @@
             </div>
         </div>
     </div>
+    <div id="alert_danger" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="alert alert-danger w-100">
+                    <strong>Not Valid!!</strong> Re-check and Try again!!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="alert" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="alert alert-success">
+                    <strong>Success!</strong> Value Added Successfuly..!
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#st_cat_btn').click(function () {
+            console.log('clicked cat')
+            let cat_name = $('#st_cat_name').val()
+            let cat_alias = $('#st_cat_alias').val()
+            let cat_under = $('#st_gp_under').val()
+
+            dic = {
+                cat_name: cat_name,
+                cat_alias: cat_alias,
+                cat_under: cat_under,
+            }
+            $.ajax({
+                type: 'POST',
+                url: '{% url "stock_category" %}',
+                data: dic,
+                dataType: "json",
+                success: function (arg) {
+                    if (arg.status === 1) {
+                        document.getElementById("stock_category_form").reset();
+                        $("#alert").modal('show');
+
+                    }
+                    else if (arg.status === 00) {
+                        $('#alert_danger').modal('show');
+                    }
+                    else {
+                        alert('unsuccess')
+                    }
+
+                }
+            })
+        });
+
+    </script>
+    <script>
+        $('#st_gp_btn').click(function () {
+            console.log('clicked')
+            let name = $('#st_gp_name').val()
+            let alias = $('#st_gp_alias').val()
+            let under = $('#st_gp_under').val()
+            let item_be_added = $('#sqan_itm_be_added').val()
+            let alter = $('#sqan_itm_be_added').val()
+            dic = {
+                name: name,
+                alias: alias,
+                under: under,
+                item_be_added: item_be_added,
+                alter: alter,
+
+            }
+            $.ajax({
+                type: 'POST',
+                url: '{% url "stock_group" %}',
+                data: dic,
+                dataType: "json",
+                success: function (arg) {
+                    if (arg.status === 1) {
+                        document.getElementById("stock_group_form").reset();
+                        $("#alert").modal('show');
+
+                    }
+                    else if (arg.status === 00) {
+                        $('#alert_danger').modal('show');
+                    }
+                    else {
+                        alert('unsuccess')
+                    }
+
+                }
+
+
+            })
+
+        })
+    </script>
+    <script>
+        $('#add_currency').click(function () {
+            console.log('cliked')
+            let symbol = $('#c_symbol').val()
+            let fname = $('#c_fname').val()
+            let iso_code = $('#c_iso_code').val()
+            let n_deci_placs = $('#c_decimal_pls').val()
+            let smt_millon = $('#c_amount_millons').val()
+            let symbol_to_amount = $('#c_suffix').val()
+            let space_bt_sy = $('#c_space').val()
+            let amount_after_decimal = $('#c_word_rep').val()
+            let amount_in_words = $('#c_decimal_places').val()
+
+            dic = {
+                symbol: symbol,
+                fname: fname,
+                iso_code: iso_code,
+                n_deci_placs: n_deci_placs,
+                smt_millon: smt_millon,
+                symbol_to_amount: symbol_to_amount,
+                space_bt_sy: space_bt_sy,
+                amount_after_decimal: amount_after_decimal,
+                amount_in_words: amount_in_words,
+            }
+            $.ajax({
+                type: 'POST',
+                url: '{% url "create_currency" %}',
+                data: dic,
+                dataType: "json",
+                success: function (arg) {
+                    if (arg.status === 1) {
+                        document.getElementById("currency_form").reset();
+                        $("#alert").modal('show');
+
+                    }
+                    else if (arg.status === 00) {
+                        $('#alert_danger').modal('show');
+                    }
+                    else {
+                        alert('unsuccess')
+                    }
+
+                }
+
+
+            })
+        })
+
+
+    </script>
+
+
+
     <script>
         $('#cbtn').click(function () {
 
@@ -280,11 +616,11 @@
                 success: function (arg) {
                     if (arg.status === 1) {
                         document.getElementById("myForm").reset();
-                        alert('Group added Successfuly..!!')
+                        $("#alert").modal('show');
 
                     }
                     else if (arg.status === 00) {
-                        alert("Not Valid")
+                        $('#alert_danger').modal('show');
                     }
                     else {
                         alert('unseccess')
@@ -344,7 +680,5 @@
         a {
             text-decoration: none;
         }
-
-        
     </style>
     {% endblock body %}

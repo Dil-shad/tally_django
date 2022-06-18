@@ -1,5 +1,4 @@
-from multiprocessing import context
-from unicodedata import name
+
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from pymysql import NULL
@@ -470,3 +469,98 @@ def create_voucher(request):
 
     }
     return render(request, 'create_voucher.html', context)
+
+
+@csrf_exempt
+def create_currency(request):
+    if request.method == 'POST':
+        symbol = request.POST['symbol']
+        fname = request.POST['fname']
+        if len(symbol) <= 0:
+            print('XX')
+            return JsonResponse({
+                'status': 00
+            })
+        elif len(fname) <= 0:
+            print('XXX')
+            return JsonResponse({
+                'status': 00
+            })
+        else:
+            pass
+
+        iso_code = request.POST['iso_code']
+        n_deci_placs = request.POST['n_deci_placs']
+        smt_millon = request.POST['smt_millon']
+        symbol_to_amount = request.POST['symbol_to_amount']
+        space_bt_sy = request.POST['space_bt_sy']
+        amount_after_decimal = request.POST['amount_after_decimal']
+        amount_in_words = request.POST['amount_in_words']
+
+        mdl_obj = CurrencyModel(
+            symbol=symbol,
+            fname=fname,
+            iso_code=iso_code,
+            n_deci_placs=n_deci_placs,
+            smt_millon=smt_millon,
+            symbol_to_amount=symbol_to_amount,
+            space_bt_sy=space_bt_sy,
+            amount_after_decimal=amount_after_decimal,
+            amount_in_words=amount_in_words,
+        )
+        mdl_obj.save()
+        return JsonResponse({
+            'status': 1
+        })
+
+
+@csrf_exempt
+def stock_group(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        if len(name) <= 0:
+            return JsonResponse({
+                'status': 00
+            })
+
+        alias = request.POST['alias']
+        under = request.POST['under']
+        item_be_added = request.POST['item_be_added']
+        alter = request.POST['alter']
+
+        mdl = StockGroupModel(
+            name=name,
+            alias=alias,
+            under=under,
+            item_be_added=item_be_added,
+            alter=alter,
+        )
+        mdl.save()
+        return JsonResponse({
+            'status': 1
+        })
+
+
+@csrf_exempt
+def stock_category(request):
+    if request.method == 'POST':
+       
+        cat_name = request.POST['cat_name']
+        if len(cat_name)<=0:
+            return JsonResponse({
+            'status': 00
+        })
+
+        cat_alias = request.POST['cat_alias']
+        cat_under = request.POST['cat_under']
+        mdl = StockCategoryModel(
+            scat_name=cat_name,
+            scat_alias=cat_alias,
+            scat_under=cat_under,
+        )
+        mdl.save()
+        
+
+        return JsonResponse({
+            'status': 1
+        })

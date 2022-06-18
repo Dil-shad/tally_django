@@ -180,3 +180,32 @@ class VoucherModel(models.Model):
     default_juridiction = models.CharField(max_length=225)
     default_title = models.CharField(max_length=225)
     alter_decalaration = models.BooleanField()
+
+
+class CurrencyModel(models.Model):
+    symbol = models.CharField(max_length=225)
+    fname = models.CharField(max_length=225)
+    iso_code = models.CharField(max_length=225)
+    n_deci_placs = models.CharField(max_length=225)
+    smt_millon = models.BooleanField()
+    symbol_to_amount = models.BooleanField()
+    space_bt_sy = models.BooleanField()
+    amount_after_decimal = models.CharField(max_length=225)
+    amount_in_words = models.CharField(max_length=225)
+
+
+class StockGroupModel(models.Model):
+    name = models.CharField(max_length=225)
+    alias = models.CharField(max_length=225)
+    under = models.CharField(max_length=225)
+    item_be_added = models.BooleanField()
+    alter = models.BooleanField()
+
+    def __str__(self):
+        return self.name
+    
+
+class StockCategoryModel(models.Model):
+    scat_name=models.CharField(max_length=225)
+    scat_alias=models.CharField(max_length=225)
+    scat_under=models.CharField(max_length=225)

@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(GroupModel)
 admin.site.register(LedgerModel)
 admin.site.register(CompanyModel)
+admin.site.register(StockGroupModel)

@@ -17,7 +17,13 @@ urlpatterns = [
     path('create_ledger',create_ledger,name='create_ledger'),
     path('log_company/<int:pk>',log_company,name='log_company'),
     path('create_voucher',create_voucher,name='create_voucher'),
+    path('create_currency',create_currency,name='create_currency'),
+    path('stock_group',stock_group,name='stock_group'),
+    path('stock_category',stock_category,name='stock_category'),
     
+    
+
+
     
     
     
