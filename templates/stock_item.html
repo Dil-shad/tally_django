@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="container">
+    <div class="w-100 border-bottom font-monospace text-black text-center" style="background-color:#b3d5d8ce ;">
+        Stock Item [{{s}}]</div>
+    <form action="{% url 'stock_item' %}" method="post">
+        <div class="row mt-3 border-bottom">
+            <div class="col-4 py-3">
+                <label for="" class="float-left">Name:</label>
+                <input type="text" class="float-end" name="nam" id=""><br><br>
+                <label for="" class="float-start">alias:</label>
+                <input type="text" class="float-end" name="alias" id=""><br>
+            </div>
+            <div class="col-8"></div>
+        </div>
+        <div class="task-container">
+            <div class="row border-bottom py-5">
+                <div class="col-6 border-end">
+                    <div>
+                        <label for="name" class=" my-3">Under:</label>
+                        <select required id="sunder" name="stock_under" class="form-control w-75  my-2 float-end">
+                            <!-- <option value="primary" selected>*Primary</option> -->
+                            <option value="Primary" selected>*Primary</option>
+                            {% for i in sgrp %}
+                            <option onclick="" value="{{i.id}}">
+                                {{i.name}}
+                            </option><br>
+
+                            {% if i.alias is not none %}
+                            <option onclick="" value="{{i.id}">
+                                {{i.alias}}
+                            </option>
+                            {% endif %}
+
+                            {% endfor %}
+                        </select><br>
+                    </div>
+                    <div>
+                        <label for="name" class=" my-3">Units:</label>
+                        <select required id="sunder" name="stock_unit" class="form-control w-75  my-2 float-end">
+                            <option value="not applicable" selected>*Not Applicable</option>
+                        </select><br>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div id="">
+                        <h6 class="text-decoration-underline flaot-start my-3" style="color: rgb(52, 52, 136);">
+                            Satutory Details</h6>
+                    </div>
+                    <div id="is_gst_applicable">
+                        <label for="" class="float-start">GST applicable:</label>
+                        <select id="subled" name="gst_applicable" class=" float-end ">
+                            <option value="Applicable" selected>Applicable</option>
+                            <option value="">Not applicable</option>
+                            <option value="Undefined">Undefined</option>
+                        </select><br><br>
+                    </div>
+                    <div id="tax_alter_gst">
+                        <label for="" class="float-start">Set/Alter GST details:</label>
+                        <select id="subled" name="alter_gst" class=" float-end ">
+                            <option value="True">Yes</option>
+                            <option value="False" selected>No</option>
+                        </select>
+                    </div><br><br>
+                    <div>
+                        <label for="">Type of Supply:</label>
+                        <input type="text" name="typ_suply" class="form-control w-25 float-end">
+                    </div><br>
+                    <div>
+                        <label for="">Rate of Duty (eg5) :</label>
+                        <input type="text" name="rate_duty" class="form-control w-25 float-end">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-4"></div>
+                <div class="col-4 text-center"><label class="" for="">Opening Balance:</label>
+                    <input name="Lopening" type="text" style="border: hidden;" placeholder=""
+                        class="border">
+
+                    <br>
+                    <button class="btn btn-success w-25 fw-bold m-2" type="submit">CREATE</button>
+                </div>
+                <div class="col-4"></div>
+            </div>
+    </form>
+</div>
+{% endblock body %}

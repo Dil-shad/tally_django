@@ -3,6 +3,7 @@ from ast import alias
 import email
 from locale import currency
 from pyexpat import model
+from unicodedata import name
 from django.db import models
 
 # Create your models here.
@@ -203,9 +204,41 @@ class StockGroupModel(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 class StockCategoryModel(models.Model):
-    scat_name=models.CharField(max_length=225)
-    scat_alias=models.CharField(max_length=225)
-    scat_under=models.CharField(max_length=225)
+    scat_name = models.CharField(max_length=225)
+    scat_alias = models.CharField(max_length=225)
+    scat_under = models.CharField(max_length=225)
+
+
+class StockItemCreation(models.Model):
+    cid = models.ForeignKey(
+        CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+    sname = models.CharField(max_length=225)
+    salias = models.CharField(max_length=225)
+    sunder = models.ForeignKey(
+        StockGroupModel, on_delete=models.CASCADE, null=True, blank=True)
+    sname = models.CharField(max_length=225)
+    units = models.CharField(max_length=225)
+    gst_applicable = models.CharField(max_length=225)
+    alter_gst_details = models.BooleanField()
+    typ_supply = models.CharField(max_length=225)
+    rate_duty = models.CharField(max_length=225)
+    opening_bal = models.CharField(max_length=225)
+
+
+class UnitCreation(models.Model):
+    cid = models.ForeignKey(CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+    type = models.CharField(max_length=225)
+    symbol = models.CharField(max_length=225)
+    formal_name = models.CharField(max_length=225)
+    quc = models.CharField(max_length=225)
+    num_decimal_plce= models.CharField(max_length=225)
+
+class InventeryLocation(models.Model):
+    cid = models.ForeignKey(CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+    name=models.CharField(max_length=225)
+    alias=models.CharField(max_length=225)
+    under=models.CharField(max_length=225)
+    

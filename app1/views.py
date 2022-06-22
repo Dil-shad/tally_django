@@ -1,4 +1,5 @@
 
+from multiprocessing import context
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from pymysql import NULL
@@ -12,8 +13,15 @@ from django.views.decorators.csrf import csrf_exempt
 def index_view(request):
     obj = CompanyModel.objects.all()
     sel = Selected_Companies_Model.objects.all()
-    sec = CompanyModel.objects.get(id=request.session["scid"])
+    setted = CompanyModel.objects.get(id=request.session["scid"])
+
+    sec = setted.cname
+    if len(sec) <= 0:
+        sec = 'not selected'
+    else:
+        pass
     print(sec)
+
     grp_under_lst = GroupModel.objects.all().order_by('name')
 
     context = {
@@ -544,12 +552,12 @@ def stock_group(request):
 @csrf_exempt
 def stock_category(request):
     if request.method == 'POST':
-       
+
         cat_name = request.POST['cat_name']
-        if len(cat_name)<=0:
+        if len(cat_name) <= 0:
             return JsonResponse({
-            'status': 00
-        })
+                'status': 00
+            })
 
         cat_alias = request.POST['cat_alias']
         cat_under = request.POST['cat_under']
@@ -559,8 +567,98 @@ def stock_category(request):
             scat_under=cat_under,
         )
         mdl.save()
-        
 
         return JsonResponse({
             'status': 1
         })
+
+
+@csrf_exempt
+def stock_item(request):
+    if request.method == 'POST':
+        sname = request.POST['nam']
+        salias = request.POST['alias']
+        sunder = request.POST['stock_under']
+        units = request.POST['stock_unit']
+        gst_applicable = request.POST['gst_applicable']
+        gst_details = request.POST['alter_gst']
+        typ_supply = request.POST['typ_suply']
+        rate_duty = request.POST['rate_duty']
+        stoc_und = StockGroupModel.objects.get(id=sunder)
+        set_id = CompanyModel.objects.get(id=request.session["scid"])
+
+        sic = StockItemCreation(
+            cid=set_id,
+            sname=sname,
+            salias=salias,
+            sunder=stoc_und,
+            units=units,
+            gst_applicable=gst_applicable,
+            alter_gst_details=gst_details,
+            typ_supply=typ_supply,
+            rate_duty=rate_duty,
+        )
+        sic.save()
+        return redirect('index_view')
+
+    stock_grp = StockGroupModel.objects.all()
+    setted = CompanyModel.objects.get(id=request.session["scid"])
+    sec = setted.cname
+    context = {
+        's': sec,
+        'sgrp': stock_grp,
+    }
+    return render(request, 'stock_item.html', context)
+
+
+@csrf_exempt
+def unit_creation(request):
+    if request.method == 'POST':
+        type = request.POST['type']
+        symbol = request.POST['symbol']
+        formal_name = request.POST['formal_name']
+        quc = request.POST['quc']
+        num_deciaml = request.POST['num_deciaml']
+        set_id = CompanyModel.objects.get(id=request.session["scid"])
+        uc = UnitCreation(
+            cid=set_id,
+            type=type,
+            symbol=symbol,
+            formal_name=formal_name,
+            quc=quc,
+            num_decimal_plce=num_deciaml,
+        )
+        uc.save()
+        return JsonResponse({
+            'status': 1
+        })
+
+    return redirect('index_view')
+
+
+@csrf_exempt
+def stock_location(request):
+    if request.method == 'POST':
+        loc_name = request.POST['loc_name']
+        if len(loc_name) <= 0:
+            return JsonResponse({
+                'status': 00
+            })
+        else:
+            pass
+        loc_alias = request.POST['loc_alias']
+        loc_under = request.POST['loc_under']
+        set_id = CompanyModel.objects.get(id=request.session["scid"])
+
+        ic = InventeryLocation(
+            cid=set_id,
+            name=loc_name,
+            alias=loc_alias,
+            under=loc_under,
+        )
+        ic.save()
+        return JsonResponse({
+            'status': 1
+        })
+
+    return redirect('index_view')
