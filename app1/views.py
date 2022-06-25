@@ -13,15 +13,12 @@ from django.views.decorators.csrf import csrf_exempt
 def index_view(request):
     obj = CompanyModel.objects.all()
     sel = Selected_Companies_Model.objects.all()
-    setted = CompanyModel.objects.get(id=request.session["scid"])
-
-    sec = setted.cname
-    if len(sec) <= 0:
-        sec = 'not selected'
-    else:
-        pass
-    print(sec)
-
+    em = EmployeeGroup.objects.all()
+    try:
+        setted = CompanyModel.objects.get(id=request.session["scid"])
+        sec = setted.cname
+    except:
+        sec = 'Select Company'
     grp_under_lst = GroupModel.objects.all().order_by('name')
 
     context = {
@@ -29,6 +26,7 @@ def index_view(request):
         'sc': sel,
         's': sec,
         "grp": grp_under_lst,
+        'emp_g': em,
     }
     return render(request, 'index.html', context)
 
@@ -640,7 +638,7 @@ def unit_creation(request):
 def stock_location(request):
     if request.method == 'POST':
         loc_name = request.POST['loc_name']
-        if len(loc_name) <= 0:
+        if len(loc_name) <= 1:
             return JsonResponse({
                 'status': 00
             })
@@ -662,3 +660,40 @@ def stock_location(request):
         })
 
     return redirect('index_view')
+
+
+@csrf_exempt
+def EmployeeGroupCreation(request):
+    if request.method == 'POST':
+        e_grp_name = request.POST['e_grp_name']
+        e_grp_name_alias = request.POST['e_grp_name_alias']
+        e_grp_name_under = request.POST['e_grp_name_under']
+        set_id = CompanyModel.objects.get(id=request.session["scid"])
+        if e_grp_name == '':
+            return JsonResponse({
+                'status': 00
+            })
+        else:
+            pass
+
+        eg = EmployeeGroup(
+            cid=set_id,
+            name=e_grp_name,
+            alias=e_grp_name_alias,
+            under=e_grp_name_under,
+        )
+        eg.save()
+        vl=EmployeeGroup.objects.values()
+        x=list(vl)
+        return JsonResponse({
+            'status': 1,
+            'x_data':x,
+        })
+
+
+
+def PayrollEmployee(request):
+    context={
+        }
+    return render(request,'employee.html',context)
+    

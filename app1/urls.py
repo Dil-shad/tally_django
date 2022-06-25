@@ -25,7 +25,8 @@ urlpatterns = [
     path('stock_item', stock_item, name='stock_item'),
     path('unit_creation', unit_creation, name='unit_creation'),
     path('stock_location', stock_location, name='stock_location'),
-
+    path('Employee-Grp-Creation',EmployeeGroupCreation,name='EmployeeGroupCreation'),
+    path('PayrollEmployee',PayrollEmployee,name='PayrollEmployee'),
 
 
 

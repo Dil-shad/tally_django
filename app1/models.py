@@ -2,6 +2,7 @@
 from ast import alias
 import email
 from locale import currency
+from operator import mod
 from pyexpat import model
 from unicodedata import name
 from django.db import models
@@ -242,3 +243,11 @@ class InventeryLocation(models.Model):
     alias=models.CharField(max_length=225)
     under=models.CharField(max_length=225)
     
+
+class EmployeeGroup(models.Model):
+    cid= models.ForeignKey(CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+    name=models.CharField(max_length=225)
+    alias=models.CharField(max_length=225)
+    under=models.CharField(max_length=225)
+    
+
