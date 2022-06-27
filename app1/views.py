@@ -693,7 +693,11 @@ def EmployeeGroupCreation(request):
 
 
 def PayrollEmployee(request):
+    s_id = CompanyModel.objects.get(id=request.session["scid"])
+    vl=EmployeeGroup.objects.all()
     context={
+        'obj':vl,
+        'scid':s_id,
         }
     return render(request,'employee.html',context)
-    
+     
