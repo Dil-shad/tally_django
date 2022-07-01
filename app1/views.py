@@ -683,21 +683,75 @@ def EmployeeGroupCreation(request):
             under=e_grp_name_under,
         )
         eg.save()
-        vl=EmployeeGroup.objects.values()
-        x=list(vl)
+        vl = EmployeeGroup.objects.values()
+        x = list(vl)
         return JsonResponse({
             'status': 1,
-            'x_data':x,
+            'x_data': x,
         })
 
 
-
+@csrf_exempt
 def PayrollEmployee(request):
     s_id = CompanyModel.objects.get(id=request.session["scid"])
-    vl=EmployeeGroup.objects.all()
-    context={
-        'obj':vl,
-        'scid':s_id,
-        }
-    return render(request,'employee.html',context)
-     
+    vl = EmployeeGroup.objects.all()
+    context = {
+        'obj': vl,
+        'scid': s_id,
+    }
+    return render(request, 'employee.html', context)
+
+
+@csrf_exempt
+def Units_work(request):
+    if request.method == 'POST':
+        type = request.POST['type']
+        symbol = request.POST['symbol']
+        formal_name = request.POST['formal_name']
+        quc = request.POST['quc']
+        num_deciaml = request.POST['num_deciaml']
+        set_id = CompanyModel.objects.get(id=request.session["scid"])
+        uce = UnitCreationEmpWork(
+            cid=set_id,
+            type=type,
+            symbol=symbol,
+            formal_name=formal_name,
+            quc=quc,
+            num_decimal_plce=num_deciaml,
+        )
+        uce.save()
+
+        return JsonResponse({
+            'status': 1
+        })
+
+    return redirect('index_view')
+@csrf_exempt
+def Attendence_work(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        if name == '':
+            return JsonResponse({
+                'status': 00
+            })
+        else:
+            pass
+        alias = request.POST['alias']
+        att_under = request.POST['att_under']
+        att_typ = request.POST['att_typ']
+        set_id = CompanyModel.objects.get(id=request.session["scid"])
+        att =Attendence(
+            cid=set_id,
+            name=name,
+            alias=alias,
+            under=att_under,
+            attendence_typ=att_typ,
+
+        )
+        att.save()
+        return JsonResponse({
+            'status': 1
+        })
+
+
+        

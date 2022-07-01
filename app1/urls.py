@@ -27,6 +27,8 @@ urlpatterns = [
     path('stock_location', stock_location, name='stock_location'),
     path('Employee-Grp-Creation',EmployeeGroupCreation,name='EmployeeGroupCreation'),
     path('PayrollEmployee',PayrollEmployee,name='PayrollEmployee'),
+    path('Units_work',Units_work,name='Units_work'),
+    path('Attendence_work',Attendence_work,name='Attendence_work'),
 
 
 

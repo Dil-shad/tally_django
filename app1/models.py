@@ -251,3 +251,20 @@ class EmployeeGroup(models.Model):
     under=models.CharField(max_length=225)
     
 
+
+class UnitCreationEmpWork(models.Model):
+    cid = models.ForeignKey(CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+    type = models.CharField(max_length=225)
+    symbol = models.CharField(max_length=225)
+    formal_name = models.CharField(max_length=225)
+    quc = models.CharField(max_length=225)
+    num_decimal_plce= models.CharField(max_length=225)
+
+
+class Attendence(models.Model):
+    cid= models.ForeignKey(CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+    name=models.CharField(max_length=225)
+    alias=models.CharField(max_length=225)
+    under=models.CharField(max_length=225)
+    attendence_typ=models.CharField(max_length=225)
+    
