@@ -3,21 +3,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <div class="container">
     <div class="w-100 border-bottom font-monospace text-black text-center mb-3" style="background-color:#b3d5d8ce ;">
-        Employee [{{scid}}]</div>
+        Employee [{{s}}]</div>
     <form action="{% url 'stock_item' %}" method="post">
         <div class="row mt-1 border-bottom">
             <div class="col-4 py-1">
-                <label for="" class="float-left">Name*:</label>
-                <input type="text" class="float-end w-75" name="nam" id="Name" placeholder=""><br><br>
+                <label for="" class="float-left">Name:</label>
+                <input type="text" class="float-end w-75" name="nam" id=""><br><br>
                 <label for="" class="float-start">alias:</label>
                 <input type="text" class="float-end w-75" name="alias" id=""><br><br>
 
-                <label for="name" class="mt-2">Under*:</label>
-                <select required id="under_main" name=" " class="form-control w-75  float-end">
+                <label for="name" class="mt-2">Under:</label>
+                <select required id="" name=" " class="form-control w-75  float-end">
                     <option value="Primary" selected>*Primary</option>
-                    {% for i in obj %}
-                    <option>{{i.name}}</option>
-                    {% endfor %}
 
                 </select><br><br>
 
@@ -26,85 +23,55 @@
             <div class="col-8"> <label for="name" class="">Date of joining:</label>
                 <input type="date" class="form-control float-end w-75"><br><br>
                 <label for="name" class="">Define Salary details:</label>
-                <select id="dsd" name="" id="" class="float-end" onchange="salarydts(this.value)">
+                <select name="" id="" class="float-end" onchange="salarydts(this.value)">
                     <option value="True">Yes</option>
                     <option value="False" selected>No</option>
                 </select>
             </div>
 
         </div>
+        <script>
+            function salarydts(arg) {
+                x = arg
+                if (x == 'True') {
+                    $('.bd-example-modal-lg').modal('show')
+                } else {
+                    //pass
+                }
 
+            }
 
-        <div class="modal fade bd-example-modal-xl" data-bs-backdrop="static" tabindex="-1" role="dialog"
-            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content ">
+        </script>
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large
+            modal</button> -->
 
-                    <div class="container w-100 mt-3 " style="min-height: 50vh;overflow-y: auto;overflow-x: auto;">
-                        <div class="row">
-                            <div class="col-2">
-                                <label id="name_modal" for="" class=""></label><br><br>
-
-                                <label id="under_modal" for="name" class=""></label>
-
-                            </div>
-                            <div class="col-10"></div>
-                        </div>
-                        <div class="text-center text-decoration-underline my-2 fw-bold">Salary Deatails</div>
-                        <table class=" text-center ">
-                            <tr class="border-bottom">
-                                <th style="font-size: 10px;">Effective from</th>
-                                <th style="width: 25%;">Pay Head</th>
-                                <th class="" style="width: 10%;">Rate</th>
-                                <th class="">Per</th>
-                                <th>Pay Head Type</th>
-                                <th>Calculation Type</th>
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="container mt-3" style="min-height: 75vh;">
+                        <table class="w-100">
+                            <tr class="border">
+                             <th style="font-size: 13px;">Effective<br>from</th>
+                             <th>Pay Head</th>
+                             <th>Rate</th>
+                             <th>Per</th>
+                             <th>Pay Head Type</th>
+                             <th>Calculation Type</th>
                             </tr>
-                            <tr class="">
-                                <td class="border-end">
-                                    <div class="p-2"><input type="date" class="cc "></div>
-                                </td>
-                                <td class="border-end">
-                                    <div class="p-2"><input type="text" class="cc "></div>
-                                </td>
-                                <td class="border-end">
-                                    <div class="p-2"><input type="text" class="cc w-75"></div>
-                                </td>
-                                <td class="border-end">
-                                    <div class="p-2"><input type="text" class="cc w-75"></div>
-                                </td>
-                                <td class="border-end">
-                                    <div class="p-2"><input type="text" class="cc "></div>
-                                </td>
-                                <td class="border-end">
-                                    <div class="p-2"><input type="text" class="cc "></div>
-                                </td>
+                            <tr>
+                              <td><input type="date"></td>
+                              <td><input type="text"></td>
+                              <td><input type="text"></td>
+                              <td><input type="text"></td>
+                              <td><input type="text"></td>
+                              <td><input type="text"></td>
                             </tr>
-
-
-                        </table>
-                        <style>
-                            th {
-                                border-bottom: 2px solid;
-                            }
-
-
-                            .cc {
-                                border: hidden;
-                            }
-
-                            tr {
-                                margin-top: 50px;
-                            }
-                        </style>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="btn_define" type="button" class="btn btn-primary">Add</button>
+                            
+                            </tr>
+                          </table>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="task-container">
@@ -132,13 +99,7 @@
                     </div>
                     <div>
                         <label for="" class="float-start">Gender:</label>
-                        <select name="bg" class="form-control w-50 float-end">
-                            <option value="" disabled selected>Select*</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Transgender</option>
-
-                        </select><br><br>
+                        <input type="text" class="float-end mt-1 w-50"><br><br>
                     </div>
                     <div>
                         <label for="" class="float-start">Date Of Birth:</label>
@@ -188,6 +149,7 @@
                 <div class="col-6">
                     <div class="mt-3">
                         <label for="name" class="">Provide bank details:</label>
+<<<<<<< HEAD
                         <select name="" id="" class="float-end" onchange="provide_bankdts(this.value)">
                             <option value="True" onclick="provide_bankdts(this.value)">Yes</option>
                             <option value="False" selected>No</option>
@@ -231,6 +193,13 @@
                             </div>
                         </div>
                     </div>
+=======
+                        <select name="" id="" class="float-end">
+                            <option value="True">Yes</option>
+                            <option value="False" selected>No</option>
+                        </select>
+                    </div>
+>>>>>>> parent of fc3635c (employee progress)
                     <div id="">
                         <h6 class="text-decoration-underline flaot-start my-3" style="color: rgb(52, 52, 136);">
                             Satutory Details</h6>
@@ -271,6 +240,7 @@
         </div>
     </form>
 </div>
+<<<<<<< HEAD
 <script>
     $(function () {
         $('#Name').blur(function () {
@@ -322,4 +292,6 @@
     }
 
 </script>
+=======
+>>>>>>> parent of fc3635c (employee progress)
 {% endblock body %}
