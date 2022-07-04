@@ -693,7 +693,6 @@ def EmployeeGroupCreation(request):
 
 @csrf_exempt
 def PayrollEmployee(request):
-<<<<<<< HEAD
     s_id = CompanyModel.objects.get(id=request.session["scid"])
     vl = EmployeeGroup.objects.all()
     context = {
@@ -756,9 +755,3 @@ def Attendence_work(request):
 
 
         
-=======
-    context={
-        }
-    return render(request,'employee.html',context)
-    
->>>>>>> parent of fc3635c (employee progress)

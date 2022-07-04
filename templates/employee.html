@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block body %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <div class="container">
     <div class="w-100 border-bottom font-monospace text-black text-center mb-3" style="background-color:#b3d5d8ce ;">
         Employee [{{s}}]</div>
@@ -42,6 +47,24 @@
             }
 
         </script>
+        <script>
+            function salarydtls(arg) {
+                /* console.log('Hiiii')
+                 var name = document.getElementById('#Name').value;
+                  document.getElementById('#name_modal').innerHTML = "Name: " + name
+                  var und = $('#under_main').val()
+                  //console.log(und)
+                  document.getElementById('under_modal').innerHTML = "Under: " + und
+          
+          
+                  x = arg
+                  if (x == 'True' && name.length >= 1) {
+                      $('.bd-example-modal-xl').modal('show')
+                  } else {
+                      //pass
+                  }*/
+            }
+        </script>
         <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large
             modal</button> -->
 
@@ -49,27 +72,41 @@
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="container mt-3" style="min-height: 75vh;">
+                    <div class="container w-100 mt-3 " style="min-height: 50vh;overflow-y: auto;overflow-x: auto;">
                         <table class="w-100">
                             <tr class="border">
-                             <th style="font-size: 13px;">Effective<br>from</th>
-                             <th>Pay Head</th>
-                             <th>Rate</th>
-                             <th>Per</th>
-                             <th>Pay Head Type</th>
-                             <th>Calculation Type</th>
+                                <th style="font-size: 13px;">Effective<br>from</th>
+                                <th>Pay Head</th>
+                                <th>Rate</th>
+                                <th>Per</th>
+                                <th>Pay Head Type</th>
+                                <th>Calculation Type</th>
                             </tr>
                             <tr>
-                              <td><input type="date"></td>
-                              <td><input type="text"></td>
-                              <td><input type="text"></td>
-                              <td><input type="text"></td>
-                              <td><input type="text"></td>
-                              <td><input type="text"></td>
+                                <td><input type="date"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
                             </tr>
-                            
+
                             </tr>
-                          </table>
+                            <style>
+                                th {
+                                    border-bottom: 2px solid;
+                                }
+    
+    
+                                .cc {
+                                    border: hidden;
+                                }
+    
+                                tr {
+                                    margin-top: 50px;
+                                }
+                            </style>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -149,7 +186,6 @@
                 <div class="col-6">
                     <div class="mt-3">
                         <label for="name" class="">Provide bank details:</label>
-<<<<<<< HEAD
                         <select name="" id="" class="float-end" onchange="provide_bankdts(this.value)">
                             <option value="True" onclick="provide_bankdts(this.value)">Yes</option>
                             <option value="False" selected>No</option>
@@ -193,13 +229,9 @@
                             </div>
                         </div>
                     </div>
-=======
-                        <select name="" id="" class="float-end">
-                            <option value="True">Yes</option>
-                            <option value="False" selected>No</option>
-                        </select>
-                    </div>
->>>>>>> parent of fc3635c (employee progress)
+
+
+
                     <div id="">
                         <h6 class="text-decoration-underline flaot-start my-3" style="color: rgb(52, 52, 136);">
                             Satutory Details</h6>
@@ -240,7 +272,7 @@
         </div>
     </form>
 </div>
-<<<<<<< HEAD
+
 <script>
     $(function () {
         $('#Name').blur(function () {
@@ -260,29 +292,14 @@
 
     })
     $(document).ready(function () {
-
-        let n = $('#dsd').val()
-        console.log(n)
-        salarydts(n)
-
-
+        /*
+                let n = $('#dsd').val()
+                console.log(n)
+                salarydts(n)
+        
+        */
     })
-    function salarydts(arg) {
-        var name = document.getElementById('Name').value;
-        document.getElementById('name_modal').innerHTML = "Name: " + name
-        var und = $('#under_main').val()
-        //console.log(und)
-        document.getElementById('under_modal').innerHTML = "Under: " + und
 
-
-        x = arg
-        if (x == 'True' && name.length >= 1) {
-            $('.bd-example-modal-xl').modal('show')
-        } else {
-            //pass
-        }
-
-    }
     function provide_bankdts(val) {
         const ipt = val
         if (ipt == 'True') {
@@ -292,6 +309,5 @@
     }
 
 </script>
-=======
->>>>>>> parent of fc3635c (employee progress)
+
 {% endblock body %}
