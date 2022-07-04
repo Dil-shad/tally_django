@@ -267,4 +267,10 @@ class Attendence(models.Model):
     alias=models.CharField(max_length=225)
     under=models.CharField(max_length=225)
     attendence_typ=models.CharField(max_length=225)
-    
+
+
+class PayHead(models.Model):
+    cid= models.ForeignKey(CompanyModel, on_delete=models.CASCADE, null=True, blank=True)
+    name=models.CharField(max_length=225)
+    alias=models.CharField(max_length=225)
+    pay_head_type=models.CharField(max_length=225)

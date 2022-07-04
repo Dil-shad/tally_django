@@ -746,12 +746,17 @@ def Attendence_work(request):
             alias=alias,
             under=att_under,
             attendence_typ=att_typ,
-
         )
         att.save()
         return JsonResponse({
             'status': 1
         })
 
+
+
+def payheadfun(request):
+
+    context={}
+    return render(request,'payhead.html',context)
 
         
