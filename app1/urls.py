@@ -29,6 +29,7 @@ urlpatterns = [
     path('PayrollEmployee',PayrollEmployee,name='PayrollEmployee'),
     path('Units_work',Units_work,name='Units_work'),
     path('Attendence_work',Attendence_work,name='Attendence_work'),
+    path('payheadfun',payheadfun,name='payheadfun'),
 
 
 
