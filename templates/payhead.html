@@ -65,42 +65,83 @@
                                         <option value="">Variable</option>
                                     </select>
                                 </div><br><br>
+                                <div id="affect_net_salary" class=" " style="display: none;">
+                                    <label class="mt-2" for="">Affect net Salary:</label>
+                                    <select onchange="on_run()" name="" id="affect_sal"
+                                        class="float-end form-control w-50">
+                                        <option selected>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </div><br>
+                                <div id="name_in_payslip" class=" " style="display: none;">
+                                    <label class="mt-2" for=""><small>Name to be displayed in payslip</small>:</label>
+                                    <input type="text" class="float-end form-control w-25">
+                                </div><br><br>
+
+                                <div>
+
+                                </div>
                             </div>
                             <script>
+                                $(function () {
+                                    $('#name_in_payslip').hide()
+
+                                })
+                                function on_run() {
+                                    n = $('#affect_sal').val()
+                                    if (n == 'Yes') {
+                                        $('#name_in_payslip').show()
+
+                                    }
+                                    else {
+                                        $('#name_in_payslip').hide()
+
+                                    }
+
+                                }
                                 function hide_divs() {
                                     $('#undr').hide()
                                     $('#income_typ').hide()
                                     $('#comput_tb').hide()
+                                    $('#affect_net_salary').hide()
                                 }
                                 function pay_head_typ() {
                                     var x = $('#ph_typ').val()
                                     console.log(x)
+                                    on_run()
                                     if (x == 'Deduction From Employees') {
                                         $('#undr').show()
+                                        $('#affect_net_salary').show()
                                     }
                                     else if (x == 'Earnings for Employees') {
                                         $('#undr').show()
                                         $('#income_typ').show()
+                                        $('#affect_net_salary').show()
                                     }
                                     else if (x == 'Not Applicable') {
                                         $('#undr').show()
+                                        $('#affect_net_salary').show()
 
                                     }
                                     else if (x == "Employee's Statutory Deductions") {
                                         $('#undr').show()
                                         $('#comput_tb').show()
+                                        $('#affect_net_salary').show()
 
                                     }
                                     else if (x == "Loans and Advances") {
                                         $('#undr').show()
+                                        $('#affect_net_salary').show()
                                     }
                                     else if (x == "Reimbursements to Employees") {
                                         $('#undr').show()
                                         $('#income_typ').show()
+                                        $('#affect_net_salary').show()
                                     }
                                     else if (x == "Employer's Statutory Contributions") {
                                         $('#undr').show()
                                         $('#comput_tb').show()
+                                        $('#affect_net_salary').show()
 
                                     }
                                 }
@@ -129,7 +170,8 @@
                                             <th>Value</th>
                                         </tr>
                                         <tr>
-                                            <td class="p-1 m-0"><input class="in_tb w-100" type="date"></td>
+                                            <td class="p-1 m-0"><input class="in_tb w-100" type="date"
+                                                    value="2022-04-01"></td>
                                             <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
                                             <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
                                             <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
@@ -174,7 +216,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="overflow-y: auto;overflow-x: auto;">
                         <div>
                             <div class="text-center">
                                 <h6 class="text-decoration-underline text-center" style="color: rgb(52, 52, 136);">Slab
@@ -185,26 +227,32 @@
                                 <input type="text" class="form-control w-25 float-end" name="" id="">
 
                             </div>
-                            <div>
-                                <div class="row border-top">
-                                    <div class="col-8 border-bottom border-end">
-                                        <p class="p-1 m-0">Number of Months</p>
-                                        <div class="row border-top py-3">
-                                            <div class="col">From:</div>
-                                            <div class="col">To:</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 p-1 border-bottom">
-                                        <div id="h">
-                                            <p>Eligibilty days for Gratuity Calculation per year</p>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-8"></div>
-                                        <div class="col-4"></div>
-                                    </div>
-                                </div>
+                            <div p-3>
+                                <table class="w-100 text-center">
+                                    <tr>
+                                        <th colspan="2">Number of Months</th>
+                                        <th class="p-1 m-0 w-25" rowspan="2">Eligibility days for <br> Gratuity
+                                            Calculation per year
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="1" style="border-right: hidden;">from</td>
+                                        <td>To</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-1 m-0" style="border-right: hidden;"><input class="in_tb w-100"
+                                                type="text"></td>
+                                        <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
+                                        <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-1 m-0" style="border-right: hidden;"><input class="in_tb w-100"
+                                                type="text"></td>
+                                        <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
+                                        <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
+                                    </tr>
+
+                                </table>
                             </div>
                         </div>
                     </div>
