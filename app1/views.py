@@ -483,12 +483,12 @@ def create_currency(request):
         symbol = request.POST['symbol']
         fname = request.POST['fname']
         if len(symbol) <= 0:
-            print('XX')
+
             return JsonResponse({
                 'status': 00
             })
         elif len(fname) <= 0:
-            print('XXX')
+
             return JsonResponse({
                 'status': 00
             })
@@ -726,6 +726,8 @@ def Units_work(request):
         })
 
     return redirect('index_view')
+
+
 @csrf_exempt
 def Attendence_work(request):
     if request.method == 'POST':
@@ -740,7 +742,7 @@ def Attendence_work(request):
         att_under = request.POST['att_under']
         att_typ = request.POST['att_typ']
         set_id = CompanyModel.objects.get(id=request.session["scid"])
-        att =Attendence(
+        att = Attendence(
             cid=set_id,
             name=name,
             alias=alias,
@@ -753,10 +755,9 @@ def Attendence_work(request):
         })
 
 
-
 def payheadfun(request):
 
-    context={}
-    return render(request,'payhead.html',context)
-
-        
+    sec = CompanyModel.objects.get(id=request.session["scid"])
+    qs = GroupModel.objects.all().order_by('name')
+    context = {'obj': qs, 's': sec}
+    return render(request, 'payhead.html', context)

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
+{% load static %}
+<script src="{% static 'js/payhead.js' %}"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
     integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -21,9 +23,9 @@
                         <div class="col-9  border">
                             <div class="float-start  p-4">
                                 <label for="name" class="float-start font-monospace">Name:</label>
-                                <input name="Lname" type="text" class=" w-75 float-end border" required><br><br>
+                                <input id="phname" name="" type="text" class=" w-75 float-end border" required><br><br>
                                 <label for="" class="font-monospace float-start">alias:</label>
-                                <input name="Lalias" type="text" class=" w-75 float-end border" required><br>
+                                <input id="phalias" type="text" class=" w-75 float-end border" required><br>
                             </div>
                         </div>
                         <div class="col-3 border-bottom text-center">
@@ -53,16 +55,19 @@
                                 </div><br><br>
                                 <div id="undr" class="" style="display: none;">
                                     <label for="payheadtype" class="float-start mt-2">Under:</label>
-                                    <select id="ph_typ" name="" class="float-end form-control w-50" id="">
-                                        <option value="">abc</option>
-                                        <option value="">abc</option>
+                                    <select id="ph_under" name="" class="float-end form-control w-50" id="">
+                                        <option selected></option>
+                                        {% for i in obj %}
+                                        <option >{{i.name}}</option>
+                                        {% endfor %}
+
                                     </select>
                                 </div><br><br>
                                 <div id="income_typ" class=" " style="display: none;">
                                     <label class="mt-2" for="">Income type:</label>
-                                    <select name="" id="" class="float-end form-control w-50">
-                                        <option value="" selected>Fixed</option>
-                                        <option value="">Variable</option>
+                                    <select name="" id="inc_typ" class="float-end form-control w-50">
+                                        <option  selected>Fixed</option>
+                                        <option>Variable</option>
                                     </select>
                                 </div><br><br>
                                 <div id="affect_net_salary" class=" " style="display: none;">
@@ -75,77 +80,24 @@
                                 </div><br>
                                 <div id="name_in_payslip" class=" " style="display: none;">
                                     <label class="mt-2" for=""><small>Name to be displayed in payslip</small>:</label>
-                                    <input type="text" class="float-end form-control w-25">
+                                    <input id="name_payslip" type="text" class="float-end form-control w-25">
                                 </div><br><br>
 
                                 <div>
-
+                                    <div id="" class="" style="display: block;">
+                                        <label class="mt-2 " for="">Calculation Type:</label>
+                                        <select id="calculation_typ" name="" id="" class="float-end form-control w-50">
+                                            <option value="" selected></option>
+                                            <option value="">As Computed Value</option>
+                                            <option value="">As User Defained Value</option>
+                                            <option value="">Flat Rate</option>
+                                            <option value="">On Attendance</option>
+                                            <option value="">On Production</option>
+                                        </select>
+                                    </div><br><br>
                                 </div>
                             </div>
-                            <script>
-                                $(function () {
-                                    $('#name_in_payslip').hide()
 
-                                })
-                                function on_run() {
-                                    n = $('#affect_sal').val()
-                                    if (n == 'Yes') {
-                                        $('#name_in_payslip').show()
-
-                                    }
-                                    else {
-                                        $('#name_in_payslip').hide()
-
-                                    }
-
-                                }
-                                function hide_divs() {
-                                    $('#undr').hide()
-                                    $('#income_typ').hide()
-                                    $('#comput_tb').hide()
-                                    $('#affect_net_salary').hide()
-                                }
-                                function pay_head_typ() {
-                                    var x = $('#ph_typ').val()
-                                    console.log(x)
-                                    on_run()
-                                    if (x == 'Deduction From Employees') {
-                                        $('#undr').show()
-                                        $('#affect_net_salary').show()
-                                    }
-                                    else if (x == 'Earnings for Employees') {
-                                        $('#undr').show()
-                                        $('#income_typ').show()
-                                        $('#affect_net_salary').show()
-                                    }
-                                    else if (x == 'Not Applicable') {
-                                        $('#undr').show()
-                                        $('#affect_net_salary').show()
-
-                                    }
-                                    else if (x == "Employee's Statutory Deductions") {
-                                        $('#undr').show()
-                                        $('#comput_tb').show()
-                                        $('#affect_net_salary').show()
-
-                                    }
-                                    else if (x == "Loans and Advances") {
-                                        $('#undr').show()
-                                        $('#affect_net_salary').show()
-                                    }
-                                    else if (x == "Reimbursements to Employees") {
-                                        $('#undr').show()
-                                        $('#income_typ').show()
-                                        $('#affect_net_salary').show()
-                                    }
-                                    else if (x == "Employer's Statutory Contributions") {
-                                        $('#undr').show()
-                                        $('#comput_tb').show()
-                                        $('#affect_net_salary').show()
-
-                                    }
-                                }
-                            </script>
                             <div class="col-6 px-5 py-3  float-end">
                                 <div id="comput_tb" style="display: none;">
                                     <div>
@@ -154,7 +106,7 @@
                                     </div>
                                     <div>
                                         <label for="" class="mt-2">Compute:</label>
-                                        <select name="" id="" class="float-end form-control w-75">
+                                        <select name="" id="compute" class="float-end form-control w-75">
                                             <option value="">On Current Deductions Total</option>
                                             <option value="">On Current Earnings Total</option>
                                             <option value="">On Current SubTotal</option>
@@ -170,12 +122,12 @@
                                             <th>Value</th>
                                         </tr>
                                         <tr>
-                                            <td class="p-1 m-0"><input class="in_tb w-100" type="date"
+                                            <td class="p-1 m-0"><input id="cefrm" class="in_tb w-100" type="date"
                                                     value="2022-04-01"></td>
-                                            <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
-                                            <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
-                                            <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
-                                            <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
+                                            <td class="p-1 m-0"><input id="amt_gtrthn" class="in_tb w-100" type="text"></td>
+                                            <td class="p-1 m-0"><input id="amt_upto" class="in_tb w-100" type="text"></td>
+                                            <td class="p-1 m-0"><input id="slb_typ" class="in_tb w-100" type="text"></td>
+                                            <td class="p-1 m-0"><input id="cvalue" class="in_tb w-100" type="text"></td>
                                         </tr>
                                     </table>
                                     <style>
@@ -224,7 +176,7 @@
                             </div>
                             <div class="mt-3">
                                 <label for="" class="mt-2">Gratuity Days of a Month:</label>
-                                <input type="text" class="form-control w-25 float-end" name="" id="">
+                                <input id="gdofmonths" type="text" class="form-control w-25 float-end" name="" id="">
 
                             </div>
                             <div p-3>
@@ -240,16 +192,17 @@
                                         <td>To</td>
                                     </tr>
                                     <tr>
-                                        <td class="p-1 m-0" style="border-right: hidden;"><input class="in_tb w-100"
+                                        <td  id="fdate1" class="p-1 m-0" style="border-right: hidden;"><input class="in_tb w-100"
                                                 type="text"></td>
-                                        <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
-                                        <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
+                                        <td class="p-1 m-0"><input id="fdate2" class="in_tb w-100" type="text" ></td>
+                                        <td class="p-1 m-0"><input  class="in_tb w-100" type="text" ></td>
                                     </tr>
                                     <tr>
                                         <td class="p-1 m-0" style="border-right: hidden;"><input class="in_tb w-100"
                                                 type="text"></td>
-                                        <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
-                                        <td class="p-1 m-0"><input class="in_tb w-100" type="text"></td>
+                                        <td class="p-1 m-0"><input id="todate1" class="in_tb w-100" type="text" ></td>
+                                        <td class="p-1 m-0"><input id="todate1" class="in_tb w-100" type="text"
+                                            ></td>
                                     </tr>
 
                                 </table>
@@ -263,7 +216,10 @@
                 </div>
             </div>
         </div>
+        <div class="text-center m-3">
+            <button class="btn btn-success" onclick="create_payhead()" type="button">CREATE</button>
 
+        </div>
     </form>
 </div>
 {% endblock body %}
